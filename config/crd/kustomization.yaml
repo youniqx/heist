@@ -1,0 +1,45 @@
+# This kustomization.yaml is not intended to be run by itself,
+# since it depends on service name and namespace that are out of this kustomize package.
+# It should be run by config/default
+resources:
+- bases/heist.youniqx.com_vaultkvsecrets.yaml
+- bases/heist.youniqx.com_vaultkvsecretengines.yaml
+- bases/heist.youniqx.com_vaultbindings.yaml
+- bases/heist.youniqx.com_vaultcertificateauthorities.yaml
+- bases/heist.youniqx.com_vaultcertificateroles.yaml
+- bases/heist.youniqx.com_vaultclientconfigs.yaml
+- bases/heist.youniqx.com_vaultsyncsecrets.yaml
+- bases/heist.youniqx.com_vaulttransitengines.yaml
+- bases/heist.youniqx.com_vaulttransitkeys.yaml
+# +kubebuilder:scaffold:crdkustomizeresource
+
+patchesStrategicMerge:
+# [WEBHOOK] To enable webhook, uncomment all the sections with [WEBHOOK] prefix.
+# patches here are for enabling the conversion webhook for each CRD
+#- patches/webhook_in_vaultkvsecrets.yaml
+#- patches/webhook_in_vaultkvsecretengines.yaml
+#- patches/webhook_in_vaultbindings.yaml
+#- patches/webhook_in_vaultkubernetesauthroles.yaml
+#- patches/webhook_in_vaultcertificateauthorities.yaml
+#- patches/webhook_in_vaultcertificateroles.yaml
+#- patches/webhook_in_vaultclientconfigs.yaml
+#- patches/webhook_in_vaultsyncsecrets.yaml
+#- patches/webhook_in_vaulttransitengines.yaml
+# +kubebuilder:scaffold:crdkustomizewebhookpatch
+
+# [CERTMANAGER] To enable webhook, uncomment all the sections with [CERTMANAGER] prefix.
+# patches here are for enabling the CA injection for each CRD
+#- patches/cainjection_in_vaultkvsecrets.yaml
+#- patches/cainjection_in_vaultkvsecretengines.yaml
+#- patches/cainjection_in_vaultbindings.yaml
+#- patches/cainjection_in_vaultkubernetesauthroles.yaml
+#- patches/cainjection_in_vaultcertificateauthorities.yaml
+#- patches/cainjection_in_vaultcertificateroless.yaml
+#- patches/cainjection_in_vaultclientconfigs.yaml
+#- patches/cainjection_in_vaultsyncsecrets.yaml
+#- patches/cainjection_in_vaulttransitengines.yaml
+# +kubebuilder:scaffold:crdkustomizecainjectionpatch
+
+# the following config is for teaching kustomize how to do kustomization for CRDs.
+configurations:
+- kustomizeconfig.yaml

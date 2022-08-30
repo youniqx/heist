@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: example-sa
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: example
+  name: example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+      annotations:
+        heist.youniqx.com/agent-image: kind.registry.svc.cluster.local:5000/heist:latest
+        heist.youniqx.com/inject-agent: "true"
+        heist.youniqx.com/agent-preload: "true"
+    spec:
+      serviceAccountName: example-sa
+      securityContext:
+        fsGroup: 3337
+      containers:
+        - image: ubuntu:latest
+          name: ubuntu
+          resources:
+            requests:
+              memory: 50Mi
+              cpu: 50m
+          securityContext:
+            runAsUser: 34000
+            runAsGroup: 34000
+            runAsNonRoot: true
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          command:
+            - sleep
+          args:
+            - "infinity"

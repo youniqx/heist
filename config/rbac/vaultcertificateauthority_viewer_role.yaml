@@ -1,0 +1,20 @@
+# permissions for end users to view vaultcertificateauthorities.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultcertificateauthority-viewer-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities/status
+  verbs:
+  - get

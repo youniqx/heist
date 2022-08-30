@@ -1,0 +1,13 @@
+---
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultTransitEngine
+metadata:
+  name: example-engine
+---
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultTransitKey
+metadata:
+  name: example-key
+spec:
+  engine: example-engine
+  type: ecdsa-p256

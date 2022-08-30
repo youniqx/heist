@@ -1,0 +1,24 @@
+# permissions for end users to edit vaultclientconfigs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultclientconfig-editor-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultclientconfigs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultclientconfigs/status
+  verbs:
+  - get

@@ -1,0 +1,94 @@
+domain: youniqx.com
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: heist
+repo: github.com/youniqx/heist
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultKVSecret
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+  webhooks:
+    validation: true
+    webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultKVSecretEngine
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+  webhooks:
+    validation: true
+    webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultBinding
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+  webhooks:
+    validation: true
+    webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultCertificateAuthority
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+  webhooks:
+    validation: true
+    webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultCertificateRole
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultClientConfig
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultSyncSecret
+  path: github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: youniqx.com
+  group: heist
+  kind: VaultTransitEngine
+  path: github.com/youniqx/heist/api/v1alpha1
+  version: v1alpha1
+version: "3"

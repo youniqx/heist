@@ -1,0 +1,24 @@
+# permissions for end users to edit vaultbindings.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultbinding-editor-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultbindings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultbindings/status
+  verbs:
+  - get

@@ -1,0 +1,577 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.2
+  creationTimestamp: null
+  name: vaultbindings.heist.youniqx.com
+spec:
+  group: heist.youniqx.com
+  names:
+    categories:
+    - heist
+    - youniqx
+    kind: VaultBinding
+    listKind: VaultBindingList
+    plural: vaultbindings
+    shortNames:
+    - vb
+    singular: vaultbinding
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of this VaultBinding
+      jsonPath: .status.conditions[?(@.type=='Provisioned')].status
+      name: Provisioned
+      type: string
+    - description: The status of this VaultBinding
+      jsonPath: .status.conditions[?(@.type=='Active')].status
+      name: Active
+      type: string
+    - description: Creation Timestamp of the binding
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: VaultBinding is the Schema for the VaultBindings API.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              agent:
+                description: Agent can be used to configure the Heist agent sidecar.
+                properties:
+                  certificateTemplates:
+                    description: CertificateTemplates is a list of certificate templates
+                      to be used when issuing certificates in the agent.
+                    items:
+                      properties:
+                        alias:
+                          description: Alias is the name of this certificate template.
+                          type: string
+                        certificateRole:
+                          description: CertificateRole is the name of the VaultCertificateRole
+                            to be used for issuing this certificate.
+                          type: string
+                        commonName:
+                          description: CommonName is the CN (common name) of the issued
+                            certificate.
+                          type: string
+                        dnsSans:
+                          description: DNSSans is a list of DNS subject alternative
+                            names requested for this certificate.
+                          items:
+                            type: string
+                          type: array
+                        excludeCNFromSans:
+                          description: ExcludeCNFromSans toggles if the common name
+                            should be excluded from the subject alternative names
+                            of the certificate.
+                          type: boolean
+                        ipSans:
+                          description: IPSans is a list of IP subject alternative
+                            names requested for this certificate.
+                          items:
+                            type: string
+                          type: array
+                        otherSans:
+                          description: 'OtherSans is a list of custom OID/UTF-8 subject
+                            alternative names requested for this certificate. Expected
+                            Format: `<oid>;<type>:<value>`'
+                          items:
+                            type: string
+                          type: array
+                        ttl:
+                          description: TTL is the Time-To-Live requested for this
+                            certificate.
+                          type: string
+                        uriSans:
+                          description: AlternativeNames is a list of URI subject alternative
+                            names requested for this certificate.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - certificateRole
+                      type: object
+                    type: array
+                  templates:
+                    description: Templates is a list of files to be populated in relevant
+                      pods by the Heist agent.
+                    items:
+                      properties:
+                        mode:
+                          description: Mode is the desired file mode of the output
+                            file. 0640 is the default. The agent is the owner of the
+                            file, owner permissions will always be read + write and
+                            cannot be modified this way. Must be specified as octal.
+                          pattern: ^[0][0-7]{3}$
+                          type: string
+                        path:
+                          description: Path is the desired output path for this value.
+                            Relative paths are interpreted to be relative to the default
+                            Heist secret directory /heist/secrets. The path must be
+                            in a shared directory, where the Heist Agent and application
+                            container have access.
+                          type: string
+                        template:
+                          description: 'Template is the template for this value. The
+                            template supports [sprig](https://masterminds.github.io/sprig/)
+                            template functions and can access all bound secrets and
+                            associated capabilities with additional template functions:
+                            - `kvSecret "<name>" "<field>"`: retrieves the value of
+                            field "<field>" from a KV secret with name "<name>". -
+                            `caField "<name>" "<field>"`: retrieves the value of field
+                            "<field>" from CA "<name>". Supported values for "<field>"
+                            are defined in VaultCertificateFieldType. - `certField
+                            "<name>" "<field>"`: retrieves the value of field "<field>"
+                            from certificate template "<name>". Supported values for
+                            "<field>" are defined in VaultCertificateFieldType.'
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              capabilities:
+                description: Capabilities configures general Vault capabilities for
+                  which access is granted.
+                items:
+                  description: VaultBindingHeistCapability represents general capabilities
+                    which can be granted to a subject.
+                  enum:
+                  - encrypt
+                  type: string
+                type: array
+              certificateAuthorities:
+                description: CertificateAuthorities is a list of certificate authorities
+                  to which access is granted.
+                items:
+                  properties:
+                    capabilities:
+                      description: Capabilities is a list of Vault capabilities for
+                        which access is granted. If not otherwise set then the "read_public"
+                        capability will be granted by default.
+                      items:
+                        description: VaultBindingCertificateAuthorityCapability represents
+                          Vault capabilities for VaultCertificateAuthority objects
+                          which can be granted to a subject. The "read_public" capability
+                          is granted by default
+                        enum:
+                        - read_public
+                        - read_private
+                        type: string
+                      type: array
+                    name:
+                      description: Name is the name of the VaultCertificateAuthority
+                        Kubernetes object. It is expected to be in the same namespace
+                        as the binding.
+                      type: string
+                  type: object
+                type: array
+              certificateRoles:
+                description: CertificateRoles is a list of certificate roles for which
+                  access is granted.
+                items:
+                  properties:
+                    capabilities:
+                      description: Capabilities is a list of Vault capabilities for
+                        which access is granted. If not otherwise set then the "issue"
+                        capability will be granted by default.
+                      items:
+                        description: VaultBindingCertificateCapability represents
+                          capabilities for VaultCertificateRole objects which can
+                          be granted to a subject. The "issue" capability is granted
+                          by default
+                        enum:
+                        - issue
+                        - sign_csr
+                        - sign_verbatim
+                        type: string
+                      type: array
+                    name:
+                      description: Name is the name of the VaultCertificateRole.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              kvSecrets:
+                description: KVSecrets is a list of kv secrets to which access is
+                  granted.
+                items:
+                  properties:
+                    capabilities:
+                      description: Capabilities is a list of granted capabilities
+                        for the specified KV secret in Vault. If not otherwise set
+                        then the "read" capability is granted by default https://www.vaultproject.io/docs/concepts/policies#capabilities,
+                        however, currently Heist only supports "read".
+                      items:
+                        description: VaultBindingKVCapability represents capabilities
+                          for VaultKVSecret objects which can be granted to a subject.
+                          The "read" capability is granted by default.
+                        enum:
+                        - read
+                        type: string
+                      type: array
+                    name:
+                      description: Name is the name of the VaultKVSecret.
+                      type: string
+                  type: object
+                type: array
+              subject:
+                description: Subject configures the service account to which access
+                  is granted.
+                properties:
+                  name:
+                    description: Name is the name of the service account you want
+                      to grant access to the referenced secrets.
+                    type: string
+                required:
+                - name
+                type: object
+              transitKeys:
+                description: TransitKeys is a list of transit keys and capabilities
+                  for which access is granted.
+                items:
+                  properties:
+                    capabilities:
+                      description: Capabilities is a list of Vault capabilities for
+                        which access is granted.
+                      items:
+                        description: VaultBindingTransitKeyCapability represents capabilities
+                          for VaultTransitKey objects which can be granted to a subject.
+                        enum:
+                        - encrypt
+                        - decrypt
+                        - datakey
+                        - rewrap
+                        - sign
+                        - hmac
+                        - verify
+                        - read
+                        type: string
+                      type: array
+                    name:
+                      description: Name is the name of the VaultTransitKey.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+            type: object
+          status:
+            description: VaultBindingStatus defines the observed state of VaultBinding.
+            properties:
+              appliedSpec:
+                properties:
+                  agent:
+                    description: Agent can be used to configure the Heist agent sidecar.
+                    properties:
+                      certificateTemplates:
+                        description: CertificateTemplates is a list of certificate
+                          templates to be used when issuing certificates in the agent.
+                        items:
+                          properties:
+                            alias:
+                              description: Alias is the name of this certificate template.
+                              type: string
+                            certificateRole:
+                              description: CertificateRole is the name of the VaultCertificateRole
+                                to be used for issuing this certificate.
+                              type: string
+                            commonName:
+                              description: CommonName is the CN (common name) of the
+                                issued certificate.
+                              type: string
+                            dnsSans:
+                              description: DNSSans is a list of DNS subject alternative
+                                names requested for this certificate.
+                              items:
+                                type: string
+                              type: array
+                            excludeCNFromSans:
+                              description: ExcludeCNFromSans toggles if the common
+                                name should be excluded from the subject alternative
+                                names of the certificate.
+                              type: boolean
+                            ipSans:
+                              description: IPSans is a list of IP subject alternative
+                                names requested for this certificate.
+                              items:
+                                type: string
+                              type: array
+                            otherSans:
+                              description: 'OtherSans is a list of custom OID/UTF-8
+                                subject alternative names requested for this certificate.
+                                Expected Format: `<oid>;<type>:<value>`'
+                              items:
+                                type: string
+                              type: array
+                            ttl:
+                              description: TTL is the Time-To-Live requested for this
+                                certificate.
+                              type: string
+                            uriSans:
+                              description: AlternativeNames is a list of URI subject
+                                alternative names requested for this certificate.
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - certificateRole
+                          type: object
+                        type: array
+                      templates:
+                        description: Templates is a list of files to be populated
+                          in relevant pods by the Heist agent.
+                        items:
+                          properties:
+                            mode:
+                              description: Mode is the desired file mode of the output
+                                file. 0640 is the default. The agent is the owner
+                                of the file, owner permissions will always be read
+                                + write and cannot be modified this way. Must be specified
+                                as octal.
+                              pattern: ^[0][0-7]{3}$
+                              type: string
+                            path:
+                              description: Path is the desired output path for this
+                                value. Relative paths are interpreted to be relative
+                                to the default Heist secret directory /heist/secrets.
+                                The path must be in a shared directory, where the
+                                Heist Agent and application container have access.
+                              type: string
+                            template:
+                              description: 'Template is the template for this value.
+                                The template supports [sprig](https://masterminds.github.io/sprig/)
+                                template functions and can access all bound secrets
+                                and associated capabilities with additional template
+                                functions: - `kvSecret "<name>" "<field>"`: retrieves
+                                the value of field "<field>" from a KV secret with
+                                name "<name>". - `caField "<name>" "<field>"`: retrieves
+                                the value of field "<field>" from CA "<name>". Supported
+                                values for "<field>" are defined in VaultCertificateFieldType.
+                                - `certField "<name>" "<field>"`: retrieves the value
+                                of field "<field>" from certificate template "<name>".
+                                Supported values for "<field>" are defined in VaultCertificateFieldType.'
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  capabilities:
+                    description: Capabilities configures general Vault capabilities
+                      for which access is granted.
+                    items:
+                      description: VaultBindingHeistCapability represents general
+                        capabilities which can be granted to a subject.
+                      enum:
+                      - encrypt
+                      type: string
+                    type: array
+                  certificateAuthorities:
+                    description: CertificateAuthorities is a list of certificate authorities
+                      to which access is granted.
+                    items:
+                      properties:
+                        capabilities:
+                          description: Capabilities is a list of Vault capabilities
+                            for which access is granted. If not otherwise set then
+                            the "read_public" capability will be granted by default.
+                          items:
+                            description: VaultBindingCertificateAuthorityCapability
+                              represents Vault capabilities for VaultCertificateAuthority
+                              objects which can be granted to a subject. The "read_public"
+                              capability is granted by default
+                            enum:
+                            - read_public
+                            - read_private
+                            type: string
+                          type: array
+                        name:
+                          description: Name is the name of the VaultCertificateAuthority
+                            Kubernetes object. It is expected to be in the same namespace
+                            as the binding.
+                          type: string
+                      type: object
+                    type: array
+                  certificateRoles:
+                    description: CertificateRoles is a list of certificate roles for
+                      which access is granted.
+                    items:
+                      properties:
+                        capabilities:
+                          description: Capabilities is a list of Vault capabilities
+                            for which access is granted. If not otherwise set then
+                            the "issue" capability will be granted by default.
+                          items:
+                            description: VaultBindingCertificateCapability represents
+                              capabilities for VaultCertificateRole objects which
+                              can be granted to a subject. The "issue" capability
+                              is granted by default
+                            enum:
+                            - issue
+                            - sign_csr
+                            - sign_verbatim
+                            type: string
+                          type: array
+                        name:
+                          description: Name is the name of the VaultCertificateRole.
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  kvSecrets:
+                    description: KVSecrets is a list of kv secrets to which access
+                      is granted.
+                    items:
+                      properties:
+                        capabilities:
+                          description: Capabilities is a list of granted capabilities
+                            for the specified KV secret in Vault. If not otherwise
+                            set then the "read" capability is granted by default https://www.vaultproject.io/docs/concepts/policies#capabilities,
+                            however, currently Heist only supports "read".
+                          items:
+                            description: VaultBindingKVCapability represents capabilities
+                              for VaultKVSecret objects which can be granted to a
+                              subject. The "read" capability is granted by default.
+                            enum:
+                            - read
+                            type: string
+                          type: array
+                        name:
+                          description: Name is the name of the VaultKVSecret.
+                          type: string
+                      type: object
+                    type: array
+                  subject:
+                    description: Subject configures the service account to which access
+                      is granted.
+                    properties:
+                      name:
+                        description: Name is the name of the service account you want
+                          to grant access to the referenced secrets.
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  transitKeys:
+                    description: TransitKeys is a list of transit keys and capabilities
+                      for which access is granted.
+                    items:
+                      properties:
+                        capabilities:
+                          description: Capabilities is a list of Vault capabilities
+                            for which access is granted.
+                          items:
+                            description: VaultBindingTransitKeyCapability represents
+                              capabilities for VaultTransitKey objects which can be
+                              granted to a subject.
+                            enum:
+                            - encrypt
+                            - decrypt
+                            - datakey
+                            - rewrap
+                            - sign
+                            - hmac
+                            - verify
+                            - read
+                            type: string
+                          type: array
+                        name:
+                          description: Name is the name of the VaultTransitKey.
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                items:
+                  description: "Condition contains details for one aspect of the current
+                    state of this API Resource. --- This struct is intended for direct
+                    use as an array at the field path .status.conditions.  For example,
+                    type FooStatus struct{ // Represents the observations of a foo's
+                    current state. // Known .status.conditions.type are: \"Available\",
+                    \"Progressing\", and \"Degraded\" // +patchMergeKey=type // +patchStrategy=merge
+                    // +listType=map // +listMapKey=type Conditions []metav1.Condition
+                    `json:\"conditions,omitempty\" patchStrategy:\"merge\" patchMergeKey:\"type\"
+                    protobuf:\"bytes,1,rep,name=conditions\"` \n // other fields }"
+                  properties:
+                    lastTransitionTime:
+                      description: lastTransitionTime is the last time the condition
+                        transitioned from one status to another. This should be when
+                        the underlying condition changed.  If that is not known, then
+                        using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: message is a human readable message indicating
+                        details about the transition. This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: observedGeneration represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.conditions[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: reason contains a programmatic identifier indicating
+                        the reason for the condition's last transition. Producers
+                        of specific condition types may define expected values and
+                        meanings for this field, and whether the values are considered
+                        a guaranteed API. The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                        --- Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            required:
+            - conditions
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
