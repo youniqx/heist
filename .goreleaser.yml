@@ -1,0 +1,45 @@
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - linux
+      - windows
+      - darwin
+    ldflags:
+      - -s -w -X 'github.com/youniqx/heist/cmd.commit={{ .Commit }}' -X 'github.com/youniqx/heist/cmd.version={{ .Version }}' -X 'github.com/youniqx/heist/cmd.tag=v{{ .Version }}' -X 'github.com/youniqx/heist/cmd.buildTime={{ .Date }}'
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+dockers:
+  - image_templates:
+      - "youniqx/heist:latest"
+      - "youniqx/heist:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "youniqx/heist:v{{ .Major }}.{{ .Minor }}"
+      - "youniqx/heist:v{{ .Major }}"
+      - "quay.io/youniqx/heist:latest"
+      - "quay.io/youniqx/heist:v{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "quay.io/youniqx/heist:v{{ .Major }}.{{ .Minor }}"
+      - "quay.io/youniqx/heist:v{{ .Major }}"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--build-arg=BINARY_PATH=heist"
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc

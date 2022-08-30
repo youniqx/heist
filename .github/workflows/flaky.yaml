@@ -1,0 +1,47 @@
+name: Test flaky
+
+on:
+  pull_request:
+    types: [ labeled ]
+
+jobs:
+  test:
+    if: contains(github.event.pull_request.labels.*.name, 'flaky_tests')
+    strategy:
+      matrix:
+        go-version: [ 1.18.x ]
+        os: [ ubuntu-latest ]
+        # Run the same test 10 x 10 = 100 times => if a test has a failure chance
+        # < 1% we are probably fine
+        target: [ test_controllers_vaulttransitengine, test_controllers_vaulttransitengine, test_controllers_vaulttransitengine, test_controllers_vaulttransitengine, test_controllers_vaulttransitengine, test_controllers_vaulttransitengine , test_controllers_vaulttransitengine , test_controllers_vaulttransitengine , test_controllers_vaulttransitengine , test_controllers_vaultbinding ]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Access to private Repos
+        run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
+        env:
+          ACCESS_TOKEN: ${{ secrets.ORGANIZATION_GITHUB_ACCESS_TOKEN }}
+      - name: Cache Go Module & Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Cache Test Env Assets
+        uses: actions/cache@v3
+        with:
+          path: testbin
+          key: ${{ runner.os }}-testenv-${{ hashFiles('mk/*_test_env.mk') }}
+      - name: Test
+        run: hack/flaky.sh --fail-fast "${{ matrix.target }}" 10

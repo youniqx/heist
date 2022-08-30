@@ -1,0 +1,20 @@
+# permissions for end users to view vaultkubernetesauthroles.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultkubernetesauthrole-viewer-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkubernetesauthroles
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkubernetesauthroles/status
+  verbs:
+  - get

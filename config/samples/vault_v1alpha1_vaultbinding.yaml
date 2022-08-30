@@ -1,0 +1,7 @@
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultBinding
+metadata:
+  name: vaultbinding-sample
+spec:
+  # Add fields here
+  foo: bar

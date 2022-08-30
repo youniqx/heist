@@ -1,0 +1,28 @@
+name: trivy
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published]
+    tags:
+      - v*
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: aquasecurity/trivy-action@0.7.1
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          exit-code: '1'
+      - name: Run Trivy vulnerability scanner in config mode
+        uses: aquasecurity/trivy-action@0.7.1
+        with:
+          scan-type: 'config'
+          scan-ref: '.'
+          exit-code: '1'
+          skip-files: kind_registry.yaml

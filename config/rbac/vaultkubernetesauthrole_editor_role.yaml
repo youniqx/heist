@@ -1,0 +1,24 @@
+# permissions for end users to edit vaultkubernetesauthroles.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultkubernetesauthrole-editor-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkubernetesauthroles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkubernetesauthroles/status
+  verbs:
+  - get
