@@ -1,0 +1,123 @@
+# VaultCertificateAuthority
+
+Configures a PKI engine in Vault. Also supports importing preexisting certificates.
+
+> **IMPORTANT:** There are a lot of things you should consider when setting up a
+> Certificate Authority. HashiCorp has listed some
+> [considerations](https://www.vaultproject.io/docs/secrets/pki/considerations)
+> which will help you to securely configure your setup.
+
+## Basic Examples
+
+Here is a minimal example of a `VaultCertificateAuthority`:
+
+```yaml
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: example-root-certificate-authority
+spec:
+  settings:
+    keyBits: 4096
+    keyType: rsa
+  subject:
+    commonName: Some Root CA
+```
+
+To provision an intermediate certificate authority, set the `issuer` field and
+reference another `VaultCertificateAuthority` object by its name:
+
+```yaml
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: example-intermediate-certificate-authority
+spec:
+  issuer: example-root-certificate-authority
+  settings:
+    keyBits: 4096
+    keyType: rsa
+  subject:
+    commonName: Some Intermediate CA
+```
+
+## Importing existing certificates
+
+To import certificates you have to set the `privateKey` and `certificate` field
+under `import`. The values configured here must not be plain text. You have to
+encrypt them using Heists managed Transit Engine which is per default mounted at
+`managed/transit`. There you will find a key called `encryption-key` which can
+be used to encrypt values for setting them in CRDs. This can be useful if you
+are working with GitOps and want to manage your CA via git.
+
+```yaml
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: example-intermediate-certificate-authority
+spec:
+  issuer: example-root-certificate-authority
+  import:
+    certificate: vault:v1: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
+    privateKey: vault:v1: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
+  subject:
+    commonName: Some Intermediate CA
+```
+
+Configuration under `settings` is ignored if the certificate is imported.
+
+## Full Example
+
+Here is an example with all fields set to their default value:
+
+```yaml
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: example-certificate-authority
+spec:
+  issuer: ""
+  subject:
+    commonName: ""
+    province: []
+    postalCode: []
+    ou: []
+    locality: []
+    country: []
+    organization: []
+    streetAddress: []
+  tuning:
+    defaultLeaseTTL: ""
+    maxLeaseTTL: ""
+    description: ""
+  import:
+    privateKey: ""
+    certificate: ""
+  settings:
+    ttl: ""
+    keyBits: 2048
+    keyType: rsa
+    excludeCNFromSans: false
+    exported: false
+    subjectAlternativeNames: []
+    ipSans: []
+    otherSans: []
+    permittedDNSDomains: []
+    uriSans: []
+  deleteProtection: false
+```
+
+Configuration under `tuning` maps directly to the tune endpoint of the Vault
+API, but not all fields are supported by Heist. More information can be found
+here: https://www.vaultproject.io/api/system/mounts#tune-mount-configuration
+
+Configuration under `settings` maps directly to the PKI Engine configuration of
+the Vault API. More information can be found here:
+https://www.vaultproject.io/api/secret/pki#generate-certificate
+
+If a certificate is imported by setting the fields under `import` then the
+values configured under `settings` are ignored.
+
+Setting `deleteProtection` to `true` prevents the `VaultCertificateAuthority`
+object from being deleted from Kubernetes. This may be useful in production
+environments.

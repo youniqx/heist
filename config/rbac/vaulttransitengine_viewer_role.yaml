@@ -1,0 +1,20 @@
+# permissions for end users to view vaulttransitengines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaulttransitengine-viewer-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitengines
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitengines/status
+  verbs:
+  - get

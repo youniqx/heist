@@ -1,0 +1,51 @@
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: tls-root
+spec:
+  subject:
+    common_name: tls-root
+  settings:
+    ttl: "20000h"
+    key_bits: 4096
+    key_type: rsa
+---
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: tls-intermediate
+spec:
+  issuer: tls-root
+  subject:
+    common_name: tls-int
+  settings:
+    ttl: "10000h"
+    key_bits: 4096
+    key_type: rsa
+---
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateRole
+metadata:
+  name: tls-cert
+spec:
+  issuer: tls-intermediate
+  settings:
+    ttl: "168h"
+    key_bits: 4096
+    key_type: rsa
+    allow_glob_domains: true
+    allow_subdomains: true
+    allow_bare_domains: true
+    allowed_domains:
+      - "example.com"
+---
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateRole
+metadata:
+  name: any-cert
+spec:
+  issuer: tls-intermediate
+  settings:
+    ttl: "168h"
+    key_type: any
+    allow_any_name: true

@@ -1,0 +1,267 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultbindings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultbindings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultbindings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateroles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateroles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateroles/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultclientconfigs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultclientconfigs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultclientconfigs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecretengines
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecretengines/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecretengines/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecrets/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultkvsecrets/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultsyncsecrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultsyncsecrets/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultsyncsecrets/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitengines
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitengines/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitengines/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitkeys
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitkeys/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaulttransitkeys/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - '*'

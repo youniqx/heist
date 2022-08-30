@@ -1,0 +1,24 @@
+# permissions for end users to edit vaultcertificateauthorities.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vaultcertificateauthority-editor-role
+rules:
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - heist.youniqx.com
+  resources:
+  - vaultcertificateauthorities/status
+  verbs:
+  - get

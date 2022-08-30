@@ -1,0 +1,116 @@
+---
+run:
+  timeout: 5m
+  skip-dirs:
+    - client
+
+linters:
+  disable:
+    - typecheck
+    - deadcode
+    - unused
+    - varcheck
+    # Disabled as of 27th July 2022 incompatible with Go 1.18
+    - bodyclose
+    - nilerr
+    - noctx
+    - rowserrcheck
+    - sqlclosecheck
+    - structcheck
+    - tparallel
+    - wastedassign
+  enable:
+    - asciicheck
+#    - cyclop
+    - depguard
+    - dogsled
+#    - dupl
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - exportloopref
+    - forbidigo
+    - forcetypeassert
+#    - funlen
+#    - gci
+#    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+#    - godox
+#    - goerr113
+    - gofmt
+    - gofumpt
+    - goheader
+    - goimports
+    - gomnd
+    - gomoddirectives
+    - gomodguard
+    - goprintffuncname
+    - gosec
+    - ifshort
+    - importas
+#    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nolintlint
+#    - paralleltest
+    - prealloc
+    - predeclared
+    - stylecheck
+    - thelper
+    - unconvert
+    - unparam
+    - whitespace
+#    - wsl
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - forbidigo
+        - gosec
+    - path: _test\.go
+      text: "SA1019"
+      linters:
+        - staticcheck
+    - path: test_utils.go
+      linters:
+        - forbidigo
+    - path: pkg/vault/matchers
+      linters:
+        - dupl
+    - path: pkg/vault/transit/encrypt.go
+      linters:
+        - dupl
+    - path: pkg/vault/transit/sign.go
+      linters:
+        - dupl
+    - path: pkg/apis/heist.youniqx.com/v1alpha1/vaulttransitkey_webhook.go
+      linters:
+        - dupl
+    - path: pkg/apis/heist.youniqx.com/v1alpha1/vaulttransitengine_webhook.go
+      linters:
+        - dupl
+    - path: pkg/testhelper
+      text: "SA1019"
+      linters:
+        - staticcheck
+    - path: pkg/controllers/vaultbinding
+      text: "SA1019"
+      linters:
+        - staticcheck
+    - path: pkg/controllers/e2e_test/test_commons.go
+      text: "ST1001"
+      linters:
+        - stylecheck
+    - path: pkg/controllers/e2e_test/test_commons.go
+      linters:
+        - gomnd
+    - path: pkg/testhelper/env.go
+      linters:
+        - forbidigo
