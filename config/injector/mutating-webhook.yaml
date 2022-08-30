@@ -1,0 +1,28 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: vault-agent-injector-cfg
+  labels:
+    app.kubernetes.io/name: vault-injector
+    app.kubernetes.io/instance: vault
+webhooks:
+  - name: vault.hashicorp.com
+    failurePolicy: Ignore
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: system
+        path: /mutate-pod-agent-injector
+    rules:
+      - operations: ["CREATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    namespaceSelector:
+      matchLabels:
+        heist.youniqx.com/inject-agent: "true"
+    admissionReviewVersions:
+      - v1
+      - v1beta1
+    sideEffects: None

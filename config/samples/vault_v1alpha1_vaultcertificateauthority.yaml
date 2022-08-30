@@ -1,0 +1,7 @@
+apiVersion: heist.youniqx.com/v1alpha1
+kind: VaultCertificateAuthority
+metadata:
+  name: vaultcertificateauthority-sample
+spec:
+  # Add fields here
+  foo: bar

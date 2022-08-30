@@ -1,0 +1,100 @@
+name: Test & Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published]
+    tags:
+      - v*
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        target: [test_injector, test_agent, test_agentserver, test_webhooks, test_vault, test_controllers_vaultbinding, test_controllers_vaultcertificaterole, test_controllers_vaultcertificateauthority, test_controllers_vaultkvengine, test_controllers_vaultkvsecret, test_controllers_vaultsyncsecret, test_controllers_vaulttransitengine, test_controllers_vaulttransitkey]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.x
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Acccess to private Repos
+        run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
+        env:
+          ACCESS_TOKEN: ${{ secrets.ORGANIZATION_GITHUB_ACCESS_TOKEN }}
+      - name: Cache Go Module & Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Cache Test Env Assets
+        uses: actions/cache@v3
+        with:
+          path: testbin
+          key: ${{ runner.os }}-testenv-${{ hashFiles('mk/*_test_env.mk') }}
+      - name: Test
+        run: make ${{ matrix.target }}
+  validate_format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.x
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Access to private Repos
+        run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
+        env:
+          ACCESS_TOKEN: ${{ secrets.ORGANIZATION_GITHUB_ACCESS_TOKEN }}
+      - name: Cache Go Module & Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Validate Formatting
+        run: make validate_format
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18.x
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Access to private Repos
+        run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
+        env:
+          ACCESS_TOKEN: ${{ secrets.ORGANIZATION_GITHUB_ACCESS_TOKEN }}
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.47.2
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: xt0rted/markdownlint-problem-matcher@v1
+      - run: npm install -g markdownlint-cli
+      - run: markdownlint **/*.md --ignore node_modules

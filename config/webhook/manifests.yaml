@@ -1,0 +1,160 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaultbinding
+  failurePolicy: Fail
+  name: vvaultbinding.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - vaultbindings
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaultcertificateauthority
+  failurePolicy: Fail
+  name: vvaultcertificateauthority.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaultcertificateauthorities
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaultkvsecret
+  failurePolicy: Fail
+  name: vvaultkvsecret.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaultkvsecrets
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaultkvsecretengine
+  failurePolicy: Fail
+  name: vvaultkvsecretengine.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaultkvsecretengines
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaultsyncsecret
+  failurePolicy: Fail
+  name: vvaultsyncsecret.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaultsyncsecrets
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaulttransitengine
+  failurePolicy: Fail
+  name: vvaulttransitengine.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaulttransitengines
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-heist-youniqx-com-v1alpha1-vaulttransitkey
+  failurePolicy: Fail
+  name: vvaulttransitkey.heist.youniqx.com
+  rules:
+  - apiGroups:
+    - heist.youniqx.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    resources:
+    - vaulttransitkeys
+  sideEffects: None

@@ -1,0 +1,20 @@
+---
+branches:
+  - main
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+  - - "semantic-release-slack-bot"
+    - notifyOnSuccess: true
+      notifyOnFail: true
+      markdownReleaseNotes: true
+      slackChannel: "product-heist"
+      slackWebhookEnVar: SLACK_PRODUCTHEIST_WEBHOOK
+      slackIcon: "party_tux"
+      packageName: "heist"
+      slackName: "Heist Release Bot"
+  - - "@semantic-release/exec"
+    - publishCmd: |
+        echo "${nextRelease.notes}" > /tmp/release-notes.md
+        goreleaser release --release-notes /tmp/release-notes.md --rm-dist
