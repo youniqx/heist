@@ -1557,6 +1557,7 @@ sigs.k8s.io/json v0.0.0-20211208200746-9f7c6b3444d2 h1:kDi4JBNAsJWfz1aEXhO8Jg87J
 sigs.k8s.io/json v0.0.0-20211208200746-9f7c6b3444d2/go.mod h1:B+TnT182UBxE84DiCz4CVE26eOSDAeYCpfDnC2kdKMY=
 sigs.k8s.io/kind v0.14.0 h1:cNmI3jGBvp7UegEGbC5we8plDtCUmaNRL+bod7JoSCE=
 sigs.k8s.io/kind v0.14.0/go.mod h1:UrFRPHG+2a5j0Q7qiR4gtJ4rEyn8TuMQwuOPf+m4oHg=
+sigs.k8s.io/kind v0.15.0/go.mod h1:cKTqagdRyUQmihhBOd+7p43DpOPRn9rHsUC08K1Jbsk=
 sigs.k8s.io/kustomize/api v0.8.0 h1:6C3GlBzDSrHg3q29k4nwAJHKyLAyZ+Fsz6DwZuao54w=
 sigs.k8s.io/kustomize/api v0.8.0/go.mod h1:Ih6Y6bOErR70EdapDtWitBzPG9HewyemRY6sFaQyugU=
 sigs.k8s.io/kustomize/cmd/config v0.9.1 h1:vU5aKij0ej0DroCAaiu8eObj7Z0HxNtbGi7wBmYYwP0=
