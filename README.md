@@ -71,7 +71,6 @@ Additionally, we also have usage guides:
 - [VaultBinding](./docs/crds/vaultbinding.md)
 - [VaultCertificateRole](./docs/crds/vaultcertificaterole.md)
 - [VaultCertificateAuthority](./docs/crds/vaultcertificateauthority.md)
-- [VaultClientConfig](./docs/crds/vaultclientconfig.md)
 - [VaultKVSecretEngine](./docs/crds/vaultkvsecretengine.md)
 - [VaultKVSecret](./docs/crds/vaultkvsecret.md)
 - [VaultSyncSecret](./docs/crds/vaultsyncsecret.md)
