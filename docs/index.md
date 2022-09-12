@@ -31,10 +31,9 @@ TLS, then Heist can sync the keys to a secret and will update them automatically
 before they expire. This allows you to use short-lived TLS credentials based on
 your own PKI.
 
-The [**VaultClientConfig**](crds/vaultclientconfig.md) CRD is completely
-managed by Heist. Users should not create `VaultClientConfig` objects
-themselves. They contain configuration for pods and service accounts which is
-consumed by the Heist Agent.
+The `VaultClientConfig` CRD is completely managed by Heist. Users should not
+create `VaultClientConfig` objects themselves. They contain configuration for
+pods and service accounts which is consumed by the Heist Agent.
 
 ## Heist Agent
 
