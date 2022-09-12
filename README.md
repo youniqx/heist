@@ -58,7 +58,7 @@ We have the following documentation to get you started with Heist:
   walks you through a basic example.
 - [**Developer Documentation**](docs/index.md): Documentation for all CRDs
   provided by Heist and covers their functionality in detail.
-- [**Admin Documentation**](docs/admin.md): Covers deploying Heist for
+- [**Admin Documentation**](docs/admin/index.md): Covers deploying Heist for
   production use, as well as backup and restore functionality.
 
 ## CRD Documentation
