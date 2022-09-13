@@ -74,6 +74,7 @@ issues:
         - dupl
         - forbidigo
         - gosec
+        - goconst
     - path: _test\.go
       text: "SA1019"
       linters:
