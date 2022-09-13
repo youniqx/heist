@@ -40,6 +40,16 @@ type VaultSyncSecretTarget struct {
 	// +kubebuilder:validation:Optional
 	// +kubebuilder:validation:Enum:=Opaque;kubernetes.io/dockercfg;kubernetes.io/dockerconfigjson;kubernetes.io/basic-auth;kubernetes.io/ssh-auth;kubernetes.io/tls
 	Type v1.SecretType `json:"type,omitempty"`
+
+	// AdditionalLabels is a map of labels added to the secret.
+	// +optional
+	// +kubebuilder:validation:Optional
+	AdditionalLabels map[string]string `json:"additionalLabels,omitempty"`
+
+	// AdditionalAnnotations is a map of annotations added to the secret.
+	// +optional
+	// +kubebuilder:validation:Optional
+	AdditionalAnnotations map[string]string `json:"additionalAnnotations,omitempty"`
 }
 
 // VaultSyncCertificateAuthority configures syncing of values from a

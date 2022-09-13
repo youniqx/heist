@@ -87,6 +87,22 @@ func (r *Reconciler) updateSync(ctx context.Context, sync *heistv1alpha1.VaultSy
 		target.Annotations[syncFromAnnotation] = syncFromAnnotationValue
 		target.Data = expectedData
 
+		if spec.Target.AdditionalAnnotations != nil {
+			for key, value := range spec.Target.AdditionalAnnotations {
+				target.Annotations[key] = value
+			}
+		}
+
+		if spec.Target.AdditionalLabels != nil {
+			if target.Labels == nil {
+				target.Labels = make(map[string]string)
+			}
+
+			for key, value := range spec.Target.AdditionalLabels {
+				target.Labels[key] = value
+			}
+		}
+
 		_ = controllerutil.SetControllerReference(sync, target, r.Scheme)
 
 		return nil

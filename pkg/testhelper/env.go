@@ -29,6 +29,7 @@ var ErrUnknownResource error = fmt.Errorf("unknown resource")
 
 type KubernetesTestHelper interface {
 	Create(objects ...client.Object)
+	Update(objects ...client.Object)
 	WaitUntilExists(objects ...client.Object)
 	CleanupCreatedObject()
 	DeleteIfPresent(obj ...client.Object)
@@ -48,6 +49,14 @@ type testHelper struct {
 func (t *testHelper) Create(objects ...client.Object) {
 	for _, obj := range objects {
 		Expect(t.Client.Create(context.TODO(), obj)).To(Succeed())
+		t.WaitUntilExists(obj)
+		t.CreatedObjects = append(t.CreatedObjects, obj)
+	}
+}
+
+func (t *testHelper) Update(objects ...client.Object) {
+	for _, obj := range objects {
+		Expect(t.Client.Update(context.TODO(), obj)).To(Succeed())
 		t.WaitUntilExists(obj)
 		t.CreatedObjects = append(t.CreatedObjects, obj)
 	}

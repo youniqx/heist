@@ -587,6 +587,32 @@ var _ = Describe("VaultSyncSecret Controller", func() {
 			Expect(secret.Data).To(HaveLen(1))
 			Expect(secret.Data["some_key"]).To(Equal([]byte("ASDF ASDF")))
 		})
+
+		It("should sync secret with labels and annotations", func() {
+			testResource := sync.DeepCopy()
+
+			testResource.Spec.Target.AdditionalAnnotations = map[string]string{
+				"youniqx.com/test-annotation": "true",
+			}
+			testResource.Spec.Target.AdditionalLabels = map[string]string{
+				"youniqx.com/test-label": "true",
+			}
+
+			Test.K8sEnv.Create(testResource)
+
+			Test.K8sEnv.Object(testResource).Should(HaveCondition(
+				heistv1alpha1.Conditions.Types.Provisioned,
+				metav1.ConditionTrue,
+				heistv1alpha1.Conditions.Reasons.Provisioned,
+				"Secret has been synced",
+			))
+
+			Expect(Test.K8sClient.Get(context.TODO(), client.ObjectKeyFromObject(secret), secret)).To(Succeed())
+			Expect(secret.Data).To(HaveLen(1))
+			Expect(secret.ObjectMeta.Annotations["youniqx.com/test-annotation"]).To(Equal("true"))
+			Expect(secret.ObjectMeta.Labels["youniqx.com/test-label"]).To(Equal("true"))
+			Expect(secret.Data["some_key"]).To(Equal([]byte("ASDF ASDF")))
+		})
 	})
 
 	When("managing a sync secret resource", func() {
@@ -835,6 +861,56 @@ var _ = Describe("VaultSyncSecret Controller", func() {
 			Expect(publicInfo.Fields["certificate_chain"]).To(Equal(string(secret.Data["cert_chain"])))
 			Expect(publicInfo.Fields["certificate"]).To(Equal(string(secret.Data["cert"])))
 			Expect(privateInfo.Fields["private_key"]).To(Equal(string(secret.Data["key"])))
+		})
+
+		It("should have correctly added label and annotation to target secret", func() {
+			Expect(secret.Data).To(HaveLen(9))
+
+			// More complex logic needed to correctly update syncsecret spec without
+			// running into race condition with controller. The reason for this
+			// is that the controller is still in the process of updating the
+			// fields in the secret, while we are already fetching it and
+			// setting the path.
+			updateSyncSecret := func() (err error) {
+				resourceWithLabelsAndAnnotations := sync.DeepCopy()
+
+				err = Test.K8sClient.Get(context.TODO(), client.ObjectKeyFromObject(resourceWithLabelsAndAnnotations), resourceWithLabelsAndAnnotations)
+				if err != nil {
+					return fmt.Errorf("couldn't fetch current syncsecret from apiserver: %w", err)
+				}
+
+				resourceWithLabelsAndAnnotations.Spec.Target.AdditionalAnnotations = map[string]string{
+					"youniqx.com/test-annotation": "true",
+				}
+				resourceWithLabelsAndAnnotations.Spec.Target.AdditionalLabels = map[string]string{
+					"youniqx.com/test-label": "true",
+				}
+
+				err = Test.K8sClient.Update(context.TODO(), resourceWithLabelsAndAnnotations)
+				if err != nil {
+					return fmt.Errorf("couldn't update syncsecret in apiserver: %w", err)
+				}
+
+				err = Test.K8sClient.Get(context.TODO(), client.ObjectKeyFromObject(secret), secret)
+				if err != nil {
+					return fmt.Errorf("couldn't fetch current secret from apiserver: %w", err)
+				}
+
+				if secret.ObjectMeta.Annotations["youniqx.com/test-annotation"] != "true" {
+					return fmt.Errorf("secret does not have annotation")
+				}
+
+				if secret.ObjectMeta.Labels["youniqx.com/test-label"] != "true" {
+					return fmt.Errorf("secret does not have label")
+				}
+
+				return nil
+			}
+
+			Eventually(updateSyncSecret, 5*time.Second, 1*time.Second).Should(Succeed())
+
+			Eventually(secret.ObjectMeta.Annotations["youniqx.com/test-annotation"]).Should(Equal("true"))
+			Eventually(secret.ObjectMeta.Labels["youniqx.com/test-label"]).Should(Equal("true"))
 		})
 
 		It("should delete the secret if the sync object is deleted", func() {
