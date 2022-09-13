@@ -149,6 +149,13 @@ func (r *Reconciler) updateEngine(engine *heistv1alpha1.VaultKVSecretEngine) (ct
 	r.attachFinalizer(engine)
 
 	if err := r.VaultAPI.UpdateKvEngine(engine); err != nil {
+		meta.SetStatusCondition(&engine.Status.Conditions, metav1.Condition{
+			Type:    heistv1alpha1.Conditions.Types.Provisioned,
+			Status:  metav1.ConditionFalse,
+			Reason:  heistv1alpha1.Conditions.Reasons.ErrorVault,
+			Message: "Failed to provision engine",
+		})
+
 		r.Recorder.Eventf(engine, "Warning", "ProvisioningFailed", "Failed to provision engine %s", engine.Name)
 		return common.Requeue, err
 	}
