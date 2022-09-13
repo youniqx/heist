@@ -40,6 +40,10 @@ spec:
     name: example-kubernetes-secret
     namespace: example-namespace
     type: Opaque
+    additionalAnnotations:
+      youniqx.com/test-label: "true"
+    additionalLabels:
+      youniqx.com/test-label: "true"
 ```
 
 ## Secret Types
