@@ -97,4 +97,4 @@ vault secrets and other Vault objects.
 ## Contributing
 
 We welcome contributions of any kind! A good starting point for your first pull
-request is our [contribution documentation](CONTRIBUTE.md).
+request is our [contribution documentation](CONTRIBUTING.md).
