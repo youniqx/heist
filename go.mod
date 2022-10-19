@@ -14,7 +14,7 @@ require (
 	github.com/onsi/gomega v1.22.1
 	github.com/spf13/cobra v1.6.0
 	github.com/spf13/viper v1.13.0
-	golang.org/x/term v0.0.0-20221017184919-83659145692c
+	golang.org/x/term v0.1.0
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/api v0.25.3
 	k8s.io/apimachinery v0.25.3
