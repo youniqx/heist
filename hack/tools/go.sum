@@ -1318,6 +1318,7 @@ k8s.io/apimachinery v0.25.0/go.mod h1:qMx9eAk0sZQGsXGu86fab8tZdffHbwUfsvzqKn4mfB
 k8s.io/code-generator v0.25.2 h1:qEHux0+E1c+j1MhsWn9+4Z6av8zrZBixOTPW064rSiY=
 k8s.io/code-generator v0.25.2/go.mod h1:f61OcU2VqVQcjt/6TrU0sta1TA5hHkOO6ZZPwkL9Eys=
 k8s.io/code-generator v0.25.3/go.mod h1:9F5fuVZOMWRme7MYj2YT3L9ropPWPokd9VRhVyD3+0w=
+k8s.io/code-generator v0.25.4/go.mod h1:9F5fuVZOMWRme7MYj2YT3L9ropPWPokd9VRhVyD3+0w=
 k8s.io/gengo v0.0.0-20211129171323-c02415ce4185 h1:TT1WdmqqXareKxZ/oNXEUSwKlLiHzPMyB0t8BaFeBYI=
 k8s.io/gengo v0.0.0-20211129171323-c02415ce4185/go.mod h1:FiNAH4ZV3gBg2Kwh89tzAEV2be7d5xI0vBa/VySYy3E=
 k8s.io/klog/v2 v2.0.0/go.mod h1:PBfzABfn139FHAV07az/IF9Wp1bkk3vpT2XSJ76fSDE=
