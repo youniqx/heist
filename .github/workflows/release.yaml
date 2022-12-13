@@ -31,7 +31,7 @@ jobs:
           npm install -g @semantic-release/exec
           npm install -g semantic-release-slack-bot
       - name: Install GoReleaser
-        uses: goreleaser/goreleaser-action@v3
+        uses: goreleaser/goreleaser-action@v4
         with:
           install-only: true
       - name: Login to DockerHub
