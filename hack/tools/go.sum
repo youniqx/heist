@@ -1323,6 +1323,7 @@ k8s.io/apimachinery v0.25.0/go.mod h1:qMx9eAk0sZQGsXGu86fab8tZdffHbwUfsvzqKn4mfB
 k8s.io/code-generator v0.25.5 h1:K3MSqc27VT6fGJtVlE037N2dGmtqyhZi3S+1GkrKH+c=
 k8s.io/code-generator v0.25.5/go.mod h1:aDxzxJynLKQkaa117y0FFcgZ5jG8+GobxZ2JUntmvKk=
 k8s.io/code-generator v0.26.0/go.mod h1:OMoJ5Dqx1wgaQzKgc+ZWaZPfGjdRq/Y3WubFrZmeI3I=
+k8s.io/code-generator v0.26.1/go.mod h1:OMoJ5Dqx1wgaQzKgc+ZWaZPfGjdRq/Y3WubFrZmeI3I=
 k8s.io/gengo v0.0.0-20211129171323-c02415ce4185 h1:TT1WdmqqXareKxZ/oNXEUSwKlLiHzPMyB0t8BaFeBYI=
 k8s.io/gengo v0.0.0-20211129171323-c02415ce4185/go.mod h1:FiNAH4ZV3gBg2Kwh89tzAEV2be7d5xI0vBa/VySYy3E=
 k8s.io/gengo v0.0.0-20220902162205-c0856e24416d/go.mod h1:FiNAH4ZV3gBg2Kwh89tzAEV2be7d5xI0vBa/VySYy3E=
