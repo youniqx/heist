@@ -31,3 +31,6 @@ KSV013
 
 # Allow mutable file system
 KSV014
+
+# Docker healthchecks are useless in Kubernetes
+DS026
