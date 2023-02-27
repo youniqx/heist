@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/daixiang0/gci v0.9.1
 	github.com/golangci/golangci-lint v1.50.1
-	github.com/onsi/ginkgo/v2 v2.8.3
+	github.com/onsi/ginkgo v1.16.5
 	k8s.io/code-generator v0.26.1
 	mvdan.cc/gofumpt v0.4.0
 	sigs.k8s.io/controller-tools v0.10.0
@@ -135,6 +135,8 @@ require (
 	github.com/nishanths/predeclared v0.2.2 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/onsi/ginkgo/v2 v2.8.3 // indirect
+	github.com/onsi/gomega v1.27.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/phayes/checkstyle v0.0.0-20170904204023-bfd46e6a821d // indirect
