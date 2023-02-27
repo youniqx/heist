@@ -1,12 +1,3 @@
-# Ignore indirect dependency vulnerability caused by
-# https://github.com/kubernetes/apiextensions-apiserver importing v2.x of
-# emicklei/go-restful, which can lead to bypassing the CORS policies.
-# Since we are not able to force update the dependency to v3 due to changes
-# in the package's api, we choose to ignore it until Kubernetes v25 is released.
-# With this release the apiextensions-apiserver repository updated the dependency
-# to v3.8.0, making it even across all imported Kubernetes dependencies.
-CVE-2022-1996 exp:2022-08-23
-
 # Ignore mongo-driver vulnerabilities because we don't use anything related
 # to mongo
 CVE-2021-20329
