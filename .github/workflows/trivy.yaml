@@ -14,13 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Run Trivy vulnerability scanner in fs mode
-        uses: aquasecurity/trivy-action@0.8.0
+        uses: aquasecurity/trivy-action@0.9.1
         with:
           scan-type: 'fs'
           scan-ref: '.'
           exit-code: '1'
       - name: Run Trivy vulnerability scanner in config mode
-        uses: aquasecurity/trivy-action@0.8.0
+        uses: aquasecurity/trivy-action@0.9.1
         with:
           scan-type: 'config'
           scan-ref: '.'
