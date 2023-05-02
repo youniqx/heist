@@ -6,9 +6,9 @@ require (
 	github.com/daixiang0/gci v0.10.1
 	github.com/golangci/golangci-lint v1.52.2
 	github.com/onsi/ginkgo v1.16.5
-	k8s.io/code-generator v0.26.3
+	k8s.io/code-generator v0.27.1
 	mvdan.cc/gofumpt v0.5.0
-	sigs.k8s.io/controller-tools v0.11.4
+	sigs.k8s.io/controller-tools v0.12.0
 	sigs.k8s.io/kind v0.18.0
 	sigs.k8s.io/kustomize/kustomize/v5 v5.0.1
 )
@@ -57,7 +57,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.1 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
-	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
+	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/go-toolsmith/astcast v1.1.0 // indirect
 	github.com/go-toolsmith/astcopy v1.1.0 // indirect
 	github.com/go-toolsmith/astequal v1.1.0 // indirect
@@ -66,11 +66,11 @@ require (
 	github.com/go-toolsmith/strparse v1.1.0 // indirect
 	github.com/go-toolsmith/typep v1.1.0 // indirect
 	github.com/go-xmlfmt/xmlfmt v1.1.2 // indirect
-	github.com/gobuffalo/flect v0.3.0 // indirect
+	github.com/gobuffalo/flect v1.0.2 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golangci/check v0.0.0-20180506172741-cfe4005ccda2 // indirect
 	github.com/golangci/dupl v0.0.0-20180902072040-3e9179ac440a // indirect
 	github.com/golangci/go-misc v0.0.0-20220329215616-d24fe342adfe // indirect
@@ -96,7 +96,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hexops/gotextdiff v1.0.3 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
-	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jgautheron/goconst v1.5.1 // indirect
 	github.com/jingyugao/rowserrcheck v1.1.1 // indirect
 	github.com/jirfag/go-printf-func-name v0.0.0-20200119135958-7558a9eaa5af // indirect
@@ -138,8 +138,7 @@ require (
 	github.com/nunnatsa/ginkgolinter v0.9.0 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/onsi/ginkgo/v2 v2.8.3 // indirect
-	github.com/onsi/gomega v1.27.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.9.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -169,7 +168,7 @@ require (
 	github.com/sourcegraph/go-diff v0.7.0 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
-	github.com/spf13/cobra v1.6.1 // indirect
+	github.com/spf13/cobra v1.7.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.13.0 // indirect
@@ -211,17 +210,17 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.4.3 // indirect
-	k8s.io/api v0.26.1 // indirect
-	k8s.io/apiextensions-apiserver v0.26.1 // indirect
-	k8s.io/apimachinery v0.26.1 // indirect
+	k8s.io/api v0.27.1 // indirect
+	k8s.io/apiextensions-apiserver v0.27.1 // indirect
+	k8s.io/apimachinery v0.27.1 // indirect
 	k8s.io/gengo v0.0.0-20220902162205-c0856e24416d // indirect
-	k8s.io/klog/v2 v2.80.1 // indirect
-	k8s.io/kube-openapi v0.0.0-20230109183929-3758b55a6596 // indirect
-	k8s.io/utils v0.0.0-20221107191617-1a15be271d1d // indirect
+	k8s.io/klog/v2 v2.90.1 // indirect
+	k8s.io/kube-openapi v0.0.0-20230308215209-15aac26d736a // indirect
+	k8s.io/utils v0.0.0-20230209194617-a36077c30491 // indirect
 	mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed // indirect
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
 	mvdan.cc/unparam v0.0.0-20221223090309-7455f1af531d // indirect
-	sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2 // indirect
+	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/kustomize/api v0.13.2 // indirect
 	sigs.k8s.io/kustomize/cmd/config v0.11.1 // indirect
 	sigs.k8s.io/kustomize/kyaml v0.14.1 // indirect
