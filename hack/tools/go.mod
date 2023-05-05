@@ -10,7 +10,7 @@ require (
 	mvdan.cc/gofumpt v0.5.0
 	sigs.k8s.io/controller-tools v0.12.0
 	sigs.k8s.io/kind v0.18.0
-	sigs.k8s.io/kustomize/kustomize/v5 v5.0.1
+	sigs.k8s.io/kustomize/kustomize/v5 v5.0.2
 )
 
 require (
@@ -221,9 +221,9 @@ require (
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
 	mvdan.cc/unparam v0.0.0-20221223090309-7455f1af531d // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
-	sigs.k8s.io/kustomize/api v0.13.2 // indirect
-	sigs.k8s.io/kustomize/cmd/config v0.11.1 // indirect
-	sigs.k8s.io/kustomize/kyaml v0.14.1 // indirect
+	sigs.k8s.io/kustomize/api v0.13.3 // indirect
+	sigs.k8s.io/kustomize/cmd/config v0.11.2 // indirect
+	sigs.k8s.io/kustomize/kyaml v0.14.2 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
