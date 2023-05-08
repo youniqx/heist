@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
-	"strings"
 
 	heistv1alpha1 "github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1"
 	"github.com/youniqx/heist/pkg/controllers/common"
@@ -218,26 +217,27 @@ func (r *Reconciler) tryPersistingCAData(ca *heistv1alpha1.VaultCertificateAutho
 		return err
 	}
 
-	var rootPEM string
+	var certificateChainPEM, fullCertificateChainPEM string
+
 	if rootCA != ca {
-		var err error
-		rootPEM, err = r.VaultAPI.ReadCACertificatePEM(rootCA)
+		rootPEM, err := r.VaultAPI.ReadCACertificatePEM(rootCA)
 		if err != nil {
 			return err
 		}
+		certificateChainPEM = info.CertificateChain
+		fullCertificateChainPEM = fmt.Sprintf("%s\n%s", info.Certificate, rootPEM)
 	} else {
-		rootPEM = info.Certificate
+		certificateChainPEM = ""
+		fullCertificateChainPEM = info.Certificate
 	}
-
-	fullChain := strings.TrimSpace(info.CertificateChain + "\n" + rootPEM)
 
 	publicSecret := &kvsecret.KvSecret{
 		Path: common.GetCAInfoSecretPath(ca),
 		Fields: map[string]string{
 			common.CAIssuerField:               info.IssuingCertificateAuthority,
 			common.CACertificateField:          info.Certificate,
-			common.CACertificateChainField:     info.CertificateChain,
-			common.CACertificateFullChainField: fullChain,
+			common.CACertificateChainField:     certificateChainPEM,
+			common.CACertificateFullChainField: fullCertificateChainPEM,
 			common.CASerialNumberField:         info.SerialNumber,
 		},
 	}
