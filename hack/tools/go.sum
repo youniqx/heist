@@ -1103,12 +1103,12 @@ sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd h1:EDPBXCAspyGV4jQlpZSudPeMm
 sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd/go.mod h1:B8JuhiUyNFVKdsE8h686QcCxMaH6HrOAZj4vswFpcB0=
 sigs.k8s.io/kind v0.18.0 h1:ahgZdVV1pdhXlYe1f+ztISakT23KdrBl/NFY9JMygzs=
 sigs.k8s.io/kind v0.18.0/go.mod h1:Qqp8AiwOlMZmJWs37Hgs31xcbiYXjtXlRBSftcnZXQk=
-sigs.k8s.io/kustomize/api v0.13.3 h1:JAICawjOKXVPppU/W46xrnRoFYp9vCyJ7UbIBqlQz7s=
-sigs.k8s.io/kustomize/api v0.13.3/go.mod h1:Bkaavz5RKK6ZzP0zgPrB7QbpbBJKiHuD3BB0KujY7Ls=
+sigs.k8s.io/kustomize/api v0.13.4 h1:E38Hfx0G9R9v7vRgKshviPotJQETG0S2gD3JdHLCAsI=
+sigs.k8s.io/kustomize/api v0.13.4/go.mod h1:Bkaavz5RKK6ZzP0zgPrB7QbpbBJKiHuD3BB0KujY7Ls=
 sigs.k8s.io/kustomize/cmd/config v0.11.2 h1:YyoHHbxxsLUts/gWLGgIQkdT82ekp3zautbpcml54vc=
 sigs.k8s.io/kustomize/cmd/config v0.11.2/go.mod h1:PCpHxyu10daTnbMfn3xhH1vppn7L8jsS3qpRKXb7Lkc=
-sigs.k8s.io/kustomize/kustomize/v5 v5.0.2 h1:S6nkYFGN75n7MbbNy7+Ejx3JBYKGOBRzMC62W1vRCHA=
-sigs.k8s.io/kustomize/kustomize/v5 v5.0.2/go.mod h1:uY2IIKtwLBc7/s6cRr9GshtNJZwF3+FrvXsaMYczbd4=
+sigs.k8s.io/kustomize/kustomize/v5 v5.0.3 h1:3krCsUOkGhECi/uP8eZ2e6nR9i/ht+5xIdXeg12Pso4=
+sigs.k8s.io/kustomize/kustomize/v5 v5.0.3/go.mod h1:FuozO28O7PGQkoO8kFLKylg1rlfFkJj0J1CyAUcBdk4=
 sigs.k8s.io/kustomize/kyaml v0.14.2 h1:9WSwztbzwGszG1bZTziQUmVMrJccnyrLb5ZMKpJGvXw=
 sigs.k8s.io/kustomize/kyaml v0.14.2/go.mod h1:AN1/IpawKilWD7V+YvQwRGUvuUOOWpjsHu6uHwonSF4=
 sigs.k8s.io/structured-merge-diff/v4 v4.2.3 h1:PRbqxJClWWYMNV1dhaG4NsibJbArud9kFxnAMREiWFE=
