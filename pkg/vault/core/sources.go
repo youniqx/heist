@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -30,7 +29,7 @@ func (e EnvVar) FetchStringValue() (string, error) {
 type File string
 
 func (f File) FetchStringValue() (string, error) {
-	data, err := ioutil.ReadFile(string(f))
+	data, err := os.ReadFile(string(f))
 	if err != nil {
 		return "", ErrSetupFailed.WithDetails(fmt.Sprintf("failed to read file at path %s", f)).WithCause(err)
 	}
