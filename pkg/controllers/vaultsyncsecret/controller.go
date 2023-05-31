@@ -34,7 +34,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
 // Reconciler reconciles a VaultSyncSecret object.
@@ -47,10 +46,10 @@ type Reconciler struct {
 	NamespaceAllowList []string
 }
 
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets/finalizers,verbs=update
-//+kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultsyncsecrets/finalizers,verbs=update
+// +kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch;create;update;patch;delete
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -125,7 +124,10 @@ func (r *Reconciler) performReconciliation(ctx context.Context, sync *heistv1alp
 func (r *Reconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&heistv1alpha1.VaultSyncSecret{}).
-		Watches(&source.Kind{Type: &v1.Secret{}}, &handler.EnqueueRequestForOwner{IsController: true, OwnerType: &heistv1alpha1.VaultSyncSecret{}}).
+		Watches(
+			&v1.Secret{},
+			handler.EnqueueRequestForOwner(mgr.GetScheme(), mgr.GetRESTMapper(), &heistv1alpha1.VaultSyncSecret{}),
+		).
 		WithEventFilter(r.EventFilter).
 		WithOptions(controller.Options{
 			MaxConcurrentReconciles: 1,

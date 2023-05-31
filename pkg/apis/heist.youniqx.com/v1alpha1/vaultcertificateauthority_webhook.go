@@ -24,6 +24,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -43,7 +44,7 @@ func (in *VaultCertificateAuthority) SetupWebhookWithManager(mgr ctrl.Manager) e
 var _ webhook.Validator = &VaultCertificateAuthority{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (in *VaultCertificateAuthority) ValidateCreate() error {
+func (in *VaultCertificateAuthority) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaultcertificateauthoritylog.WithName("validate").WithValues(
 		"action", "create",
 		"name", in.Name,
@@ -54,7 +55,7 @@ func (in *VaultCertificateAuthority) ValidateCreate() error {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (in *VaultCertificateAuthority) ValidateUpdate(old runtime.Object) error {
+func (in *VaultCertificateAuthority) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaultcertificateauthoritylog.WithName("validate").WithValues(
 		"action", "update",
 		"name", in.Name,
@@ -65,7 +66,7 @@ func (in *VaultCertificateAuthority) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (in *VaultCertificateAuthority) ValidateDelete() error {
+func (in *VaultCertificateAuthority) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaultcertificateauthoritylog.WithName("validate").WithValues(
 		"action", "delete",
 		"name", in.Name,
@@ -75,64 +76,64 @@ func (in *VaultCertificateAuthority) ValidateDelete() error {
 
 	if in.Spec.DeleteProtection {
 		log.Info("rejecting change: resource has delete protection enabled. It cannot be deleted.")
-		return errors.New("delete protection is enabled for this VaultCertificateAuthority, it cannot be deleted")
+		return nil, errors.New("delete protection is enabled for this VaultCertificateAuthority, it cannot be deleted")
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (in *VaultCertificateAuthority) validate(log logr.Logger) error {
-	if err := in.validateImportedCert(log); err != nil {
-		return err
+func (in *VaultCertificateAuthority) validate(log logr.Logger) (warnings admission.Warnings, err error) {
+	if warnings, err = in.validateImportedCert(log); err != nil {
+		return warnings, err
 	}
 
-	if err := in.validateCertSettings(log); err != nil {
-		return err
+	if warnings, err = in.validateCertSettings(log); err != nil {
+		return warnings, err
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (in *VaultCertificateAuthority) validateCertSettings(log logr.Logger) error {
+func (in *VaultCertificateAuthority) validateCertSettings(log logr.Logger) (warnings admission.Warnings, err error) {
 	if in.Spec.Import != nil {
-		return nil
+		return nil, nil
 	}
 
 	if in.Spec.Settings.KeyType == "" {
 		log.Info("rejecting change: key_type is not set")
-		return errors.New("key_type is not set")
+		return nil, errors.New("key_type is not set")
 	}
 
 	if in.Spec.Settings.KeyBits == 0 {
 		log.Info("rejecting change: key_bits is not set")
-		return errors.New("key_bits is not set")
+		return nil, errors.New("key_bits is not set")
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (in *VaultCertificateAuthority) validateImportedCert(log logr.Logger) error {
+func (in *VaultCertificateAuthority) validateImportedCert(log logr.Logger) (warnings admission.Warnings, err error) {
 	if in.Spec.Import == nil {
-		return nil
+		return nil, nil
 	}
 
 	if in.Spec.Import.PrivateKey == "" {
 		log.Info("rejecting change: private key to import is not set.")
-		return errors.New("private key to import is not set")
+		return nil, errors.New("private key to import is not set")
 	}
 	if !cipherTextRegex.MatchString(in.Spec.Import.PrivateKey) {
 		log.Info("rejecting change: private key is not a valid encrypted string")
-		return errors.New("private key is not a valid encrypted string")
+		return nil, errors.New("private key is not a valid encrypted string")
 	}
 
 	if in.Spec.Import.Certificate == "" {
 		log.Info("rejecting change: certificate to import is not set.")
-		return errors.New("certificate to import is not set")
+		return nil, errors.New("certificate to import is not set")
 	}
 	if !cipherTextRegex.MatchString(in.Spec.Import.PrivateKey) {
 		log.Info("rejecting change: certificate is not a valid encrypted string")
-		return errors.New("certificate is not a valid encrypted string")
+		return nil, errors.New("certificate is not a valid encrypted string")
 	}
 
-	return nil
+	return nil, nil
 }

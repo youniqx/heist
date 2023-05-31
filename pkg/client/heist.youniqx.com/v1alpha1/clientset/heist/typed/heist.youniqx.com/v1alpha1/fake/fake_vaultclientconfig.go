@@ -24,7 +24,6 @@ import (
 	v1alpha1 "github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +35,9 @@ type FakeVaultClientConfigs struct {
 	ns   string
 }
 
-var vaultclientconfigsResource = schema.GroupVersionResource{Group: "heist.youniqx.com", Version: "v1alpha1", Resource: "vaultclientconfigs"}
+var vaultclientconfigsResource = v1alpha1.SchemeGroupVersion.WithResource("vaultclientconfigs")
 
-var vaultclientconfigsKind = schema.GroupVersionKind{Group: "heist.youniqx.com", Version: "v1alpha1", Kind: "VaultClientConfig"}
+var vaultclientconfigsKind = v1alpha1.SchemeGroupVersion.WithKind("VaultClientConfig")
 
 // Get takes name of the vaultClientConfig, and returns the corresponding vaultClientConfig object, and an error if there is any.
 func (c *FakeVaultClientConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.VaultClientConfig, err error) {

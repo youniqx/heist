@@ -24,6 +24,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -38,12 +39,12 @@ func (r *VaultBinding) SetupWebhookWithManager(mgr ctrl.Manager) error {
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
-//+kubebuilder:webhook:path=/validate-heist-youniqx-com-v1alpha1-vaultbinding,mutating=false,failurePolicy=fail,sideEffects=None,groups=heist.youniqx.com,resources=vaultbindings,verbs=create;update,versions=v1alpha1,name=vvaultbinding.heist.youniqx.com,admissionReviewVersions={v1,v1beta1}
+// +kubebuilder:webhook:path=/validate-heist-youniqx-com-v1alpha1-vaultbinding,mutating=false,failurePolicy=fail,sideEffects=None,groups=heist.youniqx.com,resources=vaultbindings,verbs=create;update,versions=v1alpha1,name=vvaultbinding.heist.youniqx.com,admissionReviewVersions={v1,v1beta1}
 
 var _ webhook.Validator = &VaultBinding{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultBinding) ValidateCreate() error {
+func (r *VaultBinding) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaultbindinglog.WithName("validate").WithValues(
 		"action", "create",
 		"name", r.Name,
@@ -52,14 +53,14 @@ func (r *VaultBinding) ValidateCreate() error {
 	log.Info("validation started")
 
 	if r.Spec.Subject.Name == "" {
-		return fmt.Errorf("subject must be specified ")
+		return nil, fmt.Errorf("subject must be specified ")
 	}
 
 	return r.validate(log)
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultBinding) ValidateUpdate(old runtime.Object) error {
+func (r *VaultBinding) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaultbindinglog.WithName("validate").WithValues(
 		"action", "update",
 		"name", r.Name,
@@ -70,16 +71,16 @@ func (r *VaultBinding) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultBinding) ValidateDelete() error {
+func (r *VaultBinding) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaultbindinglog.WithName("validate").WithValues(
 		"action", "delete",
 		"name", r.Name,
 		"namespace", r.Namespace,
 	)
 	log.Info("validation started")
-	return nil
+	return nil, nil
 }
 
-func (r *VaultBinding) validate(log logr.Logger) error {
-	return nil
+func (r *VaultBinding) validate(log logr.Logger) (warnings admission.Warnings, err error) {
+	return nil, nil
 }

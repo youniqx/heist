@@ -24,7 +24,6 @@ import (
 	v1alpha1 "github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +35,9 @@ type FakeVaultCertificateRoles struct {
 	ns   string
 }
 
-var vaultcertificaterolesResource = schema.GroupVersionResource{Group: "heist.youniqx.com", Version: "v1alpha1", Resource: "vaultcertificateroles"}
+var vaultcertificaterolesResource = v1alpha1.SchemeGroupVersion.WithResource("vaultcertificateroles")
 
-var vaultcertificaterolesKind = schema.GroupVersionKind{Group: "heist.youniqx.com", Version: "v1alpha1", Kind: "VaultCertificateRole"}
+var vaultcertificaterolesKind = v1alpha1.SchemeGroupVersion.WithKind("VaultCertificateRole")
 
 // Get takes name of the vaultCertificateRole, and returns the corresponding vaultCertificateRole object, and an error if there is any.
 func (c *FakeVaultCertificateRoles) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.VaultCertificateRole, err error) {
