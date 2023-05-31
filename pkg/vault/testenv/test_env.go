@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -290,7 +289,7 @@ func (e *testEnv) Start() error {
 		}
 
 		processID := strconv.Itoa(e.VaultServeCommand.Process.Pid)
-		if err := ioutil.WriteFile(handlePath, []byte(processID), handleFilePerm); err != nil {
+		if err := os.WriteFile(handlePath, []byte(processID), handleFilePerm); err != nil {
 			return err
 		}
 

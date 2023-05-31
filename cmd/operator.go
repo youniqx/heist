@@ -153,11 +153,16 @@ func generateManagerConfig(heistConfig *HeistConfig) ctrl.Options {
 	case strings.Contains(watchedNamespaces, ","):
 		namespaces := strings.Split(watchedNamespaces, ",")
 		setupLog.Info("Operator Scope: multi namespace", "namespaces", namespaces)
-		options.NewCache = cache.MultiNamespacedCacheBuilder(namespaces)
+
+		options.NewCache = func(config *rest.Config, opts cache.Options) (cache.Cache, error) {
+			opts.Namespaces = namespaces
+			return cache.New(config, opts)
+		}
+
 		return options
 	default:
 		setupLog.Info("Operator Scope: single namespace", "namespaces", []string{watchedNamespaces})
-		options.Namespace = watchedNamespaces
+		options.Cache.Namespaces = []string{watchedNamespaces}
 		return options
 	}
 }

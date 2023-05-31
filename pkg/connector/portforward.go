@@ -129,7 +129,6 @@ func translateServicePortToTargetPort(ports []string, svc corev1.Service, pod co
 	for _, port := range ports {
 		localPort, remotePort := splitPort(port)
 
-		//nolint:gosec
 		portnum, err := strconv.Atoi(remotePort)
 		if err != nil {
 			svcPort, err := lookupServicePortNumberByName(svc, remotePort)
@@ -145,6 +144,9 @@ func translateServicePortToTargetPort(ports []string, svc corev1.Service, pod co
 		if portnum < 0 || portnum > 65535 {
 			return nil, fmt.Errorf("port %s is not a valid port number", port)
 		}
+
+		// secured by out-of-bounds check in line above
+		//nolint:gosec
 		containerPort, err := lookupContainerPortNumberByServicePort(svc, pod, int32(portnum))
 		if err != nil {
 			// can't resolve a named port, or Service did not declare this port, return an error

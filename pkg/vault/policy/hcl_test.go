@@ -11,8 +11,6 @@ import (
 )
 
 func TestEncodeHCL(t *testing.T) {
-	t.Parallel()
-
 	tests := []struct {
 		name   string
 		policy *Policy
@@ -62,7 +60,9 @@ func TestEncodeHCL(t *testing.T) {
 		},
 	}
 
+	t.Parallel()
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -77,8 +77,6 @@ func TestEncodeHCL(t *testing.T) {
 }
 
 func TestDecodeHCL(t *testing.T) {
-	t.Parallel()
-
 	tests := []struct {
 		name         string
 		stringPolicy string
@@ -129,7 +127,9 @@ func TestDecodeHCL(t *testing.T) {
 		},
 	}
 
+	t.Parallel()
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := &Policy{}
@@ -153,8 +153,6 @@ func TestDecodeHCL(t *testing.T) {
 }
 
 func TestPolicyRoot_MarshalJSON(t *testing.T) {
-	t.Parallel()
-
 	type fields struct {
 		Rules []*Rule
 	}
@@ -209,7 +207,9 @@ func TestPolicyRoot_MarshalJSON(t *testing.T) {
 		},
 	}
 
+	t.Parallel()
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			p := &Policy{
@@ -228,8 +228,6 @@ func TestPolicyRoot_MarshalJSON(t *testing.T) {
 }
 
 func TestPolicyRoot_UnmarshalJSON(t *testing.T) {
-	t.Parallel()
-
 	type args struct {
 		bytes []byte
 	}
@@ -284,7 +282,9 @@ func TestPolicyRoot_UnmarshalJSON(t *testing.T) {
 		},
 	}
 
+	t.Parallel()
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := &Policy{}
