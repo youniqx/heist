@@ -9,7 +9,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'flaky_tests')
     strategy:
       matrix:
-        go-version: [ 1.18.x ]
+        go-version: [ 1.20.x ]
         os: [ ubuntu-latest ]
         # Run the same test 10 x 10 = 100 times => if a test has a failure chance
         # < 1% we are probably fine
