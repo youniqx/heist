@@ -80,7 +80,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.18.x
+          go-version: 1.19.x
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Access to private Repos
@@ -90,7 +90,7 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.47.2
+          version: v1.52.2
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
