@@ -21,6 +21,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -40,7 +41,7 @@ func (r *VaultTransitKey) SetupWebhookWithManager(mgr ctrl.Manager) error {
 var _ webhook.Validator = &VaultTransitKey{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitKey) ValidateCreate() error {
+func (r *VaultTransitKey) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaulttransitkeylog.WithName("validate").WithValues(
 		"action", "create",
 		"name", r.Name,
@@ -51,7 +52,7 @@ func (r *VaultTransitKey) ValidateCreate() error {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitKey) ValidateUpdate(old runtime.Object) error {
+func (r *VaultTransitKey) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaulttransitkeylog.WithName("validate").WithValues(
 		"action", "update",
 		"name", r.Name,
@@ -62,7 +63,7 @@ func (r *VaultTransitKey) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitKey) ValidateDelete() error {
+func (r *VaultTransitKey) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaulttransitkeylog.WithName("validate").WithValues(
 		"action", "delete",
 		"name", r.Name,
@@ -72,12 +73,12 @@ func (r *VaultTransitKey) ValidateDelete() error {
 
 	if r.Spec.DeleteProtection {
 		log.Info("rejecting change: resource has delete protection enabled. It cannot be deleted.")
-		return errors.New("delete protection is enabled for this VaultTransitKey, it cannot be deleted")
+		return nil, errors.New("delete protection is enabled for this VaultTransitKey, it cannot be deleted")
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (r *VaultTransitKey) validate(_ logr.Logger) error {
-	return nil
+func (r *VaultTransitKey) validate(_ logr.Logger) (warnings admission.Warnings, err error) {
+	return nil, nil
 }

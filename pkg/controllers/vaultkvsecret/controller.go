@@ -36,7 +36,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
 // Reconciler reconciles a VaultKVSecret object.
@@ -122,35 +121,38 @@ func (r *Reconciler) SetupWithManager(mgr ctrl.Manager) error {
 		WithOptions(controller.Options{
 			MaxConcurrentReconciles: 1,
 		}).
-		Watches(&source.Kind{Type: &heistv1alpha1.VaultKVSecretEngine{}}, handler.EnqueueRequestsFromMapFunc(func(object client.Object) []reconcile.Request {
-			engine, ok := object.(*heistv1alpha1.VaultKVSecretEngine)
-			if !ok {
-				return nil
-			}
-
-			secrets := heistv1alpha1.VaultKVSecretList{}
-			for i := 0; i < 3; i++ {
-				if err := mgr.GetClient().List(context.TODO(), &secrets, &client.ListOptions{Namespace: engine.Namespace}); err != nil {
-					time.Sleep(time.Second)
-					continue
+		Watches(
+			&heistv1alpha1.VaultKVSecretEngine{},
+			handler.EnqueueRequestsFromMapFunc(func(ctx context.Context, object client.Object) []reconcile.Request {
+				engine, ok := object.(*heistv1alpha1.VaultKVSecretEngine)
+				if !ok {
+					return nil
 				}
-				requests := make([]reconcile.Request, 0, len(secrets.Items))
-				for _, secret := range secrets.Items {
-					if secret.Spec.Engine != engine.Name {
+
+				secrets := heistv1alpha1.VaultKVSecretList{}
+				for i := 0; i < 3; i++ {
+					if err := mgr.GetClient().List(context.TODO(), &secrets, &client.ListOptions{Namespace: engine.Namespace}); err != nil {
+						time.Sleep(time.Second)
 						continue
 					}
+					requests := make([]reconcile.Request, 0, len(secrets.Items))
+					for _, secret := range secrets.Items {
+						if secret.Spec.Engine != engine.Name {
+							continue
+						}
 
-					requests = append(requests, reconcile.Request{
-						NamespacedName: types.NamespacedName{
-							Name:      secret.Name,
-							Namespace: secret.Namespace,
-						},
-					})
+						requests = append(requests, reconcile.Request{
+							NamespacedName: types.NamespacedName{
+								Name:      secret.Name,
+								Namespace: secret.Namespace,
+							},
+						})
+					}
+					return requests
 				}
-				return requests
-			}
-			return nil
-		})).
+				return nil
+			}),
+		).
 		Complete(r)
 }
 

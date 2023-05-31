@@ -22,6 +22,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -41,7 +42,7 @@ func (r *VaultTransitEngine) SetupWebhookWithManager(mgr ctrl.Manager) error {
 var _ webhook.Validator = &VaultTransitEngine{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitEngine) ValidateCreate() error {
+func (r *VaultTransitEngine) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaulttransitenginelog.WithName("validate").WithValues(
 		"action", "create",
 		"name", r.Name,
@@ -52,7 +53,7 @@ func (r *VaultTransitEngine) ValidateCreate() error {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitEngine) ValidateUpdate(old runtime.Object) error {
+func (r *VaultTransitEngine) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaulttransitenginelog.WithName("validate").WithValues(
 		"action", "update",
 		"name", r.Name,
@@ -63,7 +64,7 @@ func (r *VaultTransitEngine) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultTransitEngine) ValidateDelete() error {
+func (r *VaultTransitEngine) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaulttransitenginelog.WithName("validate").WithValues(
 		"action", "delete",
 		"name", r.Name,
@@ -71,9 +72,9 @@ func (r *VaultTransitEngine) ValidateDelete() error {
 	)
 	log.Info("delete validation started")
 
-	return nil
+	return nil, nil
 }
 
-func (r *VaultTransitEngine) validate(_ logr.Logger) error {
-	return nil
+func (r *VaultTransitEngine) validate(_ logr.Logger) (warnings admission.Warnings, err error) {
+	return nil, nil
 }

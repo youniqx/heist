@@ -24,7 +24,6 @@ import (
 	v1alpha1 "github.com/youniqx/heist/pkg/apis/heist.youniqx.com/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +35,9 @@ type FakeVaultTransitKeys struct {
 	ns   string
 }
 
-var vaulttransitkeysResource = schema.GroupVersionResource{Group: "heist.youniqx.com", Version: "v1alpha1", Resource: "vaulttransitkeys"}
+var vaulttransitkeysResource = v1alpha1.SchemeGroupVersion.WithResource("vaulttransitkeys")
 
-var vaulttransitkeysKind = schema.GroupVersionKind{Group: "heist.youniqx.com", Version: "v1alpha1", Kind: "VaultTransitKey"}
+var vaulttransitkeysKind = v1alpha1.SchemeGroupVersion.WithKind("VaultTransitKey")
 
 // Get takes name of the vaultTransitKey, and returns the corresponding vaultTransitKey object, and an error if there is any.
 func (c *FakeVaultTransitKeys) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.VaultTransitKey, err error) {

@@ -36,7 +36,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
 // Reconciler reconciles a VaultCertificateRole object.
@@ -49,9 +48,9 @@ type Reconciler struct {
 	EventFilter predicate.Predicate
 }
 
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles/finalizers,verbs=update
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateroles/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -109,7 +108,7 @@ func (r *Reconciler) SetupWithManager(mgr ctrl.Manager) error {
 		WithOptions(controller.Options{
 			MaxConcurrentReconciles: 1,
 		}).
-		Watches(&source.Kind{Type: &heistv1alpha1.VaultCertificateAuthority{}}, handler.EnqueueRequestsFromMapFunc(func(object client.Object) []reconcile.Request {
+		Watches(&heistv1alpha1.VaultCertificateAuthority{}, handler.EnqueueRequestsFromMapFunc(func(ctx context.Context, object client.Object) []reconcile.Request {
 			ca, ok := object.(*heistv1alpha1.VaultCertificateAuthority)
 			if !ok {
 				return nil
@@ -117,7 +116,7 @@ func (r *Reconciler) SetupWithManager(mgr ctrl.Manager) error {
 
 			certificates := heistv1alpha1.VaultCertificateRoleList{}
 			for i := 0; i < 3; i++ {
-				if err := mgr.GetClient().List(context.TODO(), &certificates, &client.ListOptions{Namespace: ca.Namespace}); err != nil {
+				if err := mgr.GetClient().List(ctx, &certificates, &client.ListOptions{Namespace: ca.Namespace}); err != nil {
 					time.Sleep(time.Second)
 					continue
 				}

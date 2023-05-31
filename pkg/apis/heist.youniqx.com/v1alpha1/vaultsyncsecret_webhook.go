@@ -22,6 +22,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -41,7 +42,7 @@ func (r *VaultSyncSecret) SetupWebhookWithManager(mgr ctrl.Manager) error {
 var _ webhook.Validator = &VaultSyncSecret{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultSyncSecret) ValidateCreate() error {
+func (r *VaultSyncSecret) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaultsyncsecretlog.WithName("validate").WithValues(
 		"action", "create",
 		"namespace", r.Namespace,
@@ -53,7 +54,7 @@ func (r *VaultSyncSecret) ValidateCreate() error {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultSyncSecret) ValidateUpdate(old runtime.Object) error {
+func (r *VaultSyncSecret) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaultsyncsecretlog.WithName("validate").WithValues(
 		"action", "update",
 		"namespace", r.Namespace,
@@ -65,7 +66,7 @@ func (r *VaultSyncSecret) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultSyncSecret) ValidateDelete() error {
+func (r *VaultSyncSecret) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaultsyncsecretlog.WithName("validate").WithValues(
 		"action", "delete",
 		"namespace", r.Namespace,
@@ -73,10 +74,10 @@ func (r *VaultSyncSecret) ValidateDelete() error {
 	)
 	log.Info("delete validation started")
 
-	return nil
+	return nil, nil
 }
 
-func (r *VaultSyncSecret) validate(log logr.Logger) error {
+func (r *VaultSyncSecret) validate(log logr.Logger) (warnings admission.Warnings, err error) {
 	log.Info("validation successful")
-	return nil
+	return nil, nil
 }

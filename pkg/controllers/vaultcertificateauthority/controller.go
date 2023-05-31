@@ -36,7 +36,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
 // Reconciler reconciles a VaultCertificateAuthority object.
@@ -49,9 +48,9 @@ type Reconciler struct {
 	EventFilter predicate.Predicate
 }
 
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities/finalizers,verbs=update
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=heist.youniqx.com,resources=vaultcertificateauthorities/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -109,37 +108,40 @@ func (r *Reconciler) SetupWithManager(mgr ctrl.Manager) error {
 		WithOptions(controller.Options{
 			MaxConcurrentReconciles: 1,
 		}).
-		Watches(&source.Kind{Type: &heistv1alpha1.VaultCertificateAuthority{}}, handler.EnqueueRequestsFromMapFunc(func(object client.Object) []reconcile.Request {
-			ca, ok := object.(*heistv1alpha1.VaultCertificateAuthority)
-			if !ok {
+		Watches(
+			&heistv1alpha1.VaultCertificateAuthority{},
+			handler.EnqueueRequestsFromMapFunc(func(ctx context.Context, object client.Object) []reconcile.Request {
+				ca, ok := object.(*heistv1alpha1.VaultCertificateAuthority)
+				if !ok {
+					return nil
+				}
+
+				otherCAs := heistv1alpha1.VaultCertificateAuthorityList{}
+				for i := 0; i < 3; i++ {
+					if err := mgr.GetClient().List(context.TODO(), &otherCAs, &client.ListOptions{Namespace: ca.Namespace}); err != nil {
+						time.Sleep(time.Second)
+						continue
+					}
+					requests := make([]reconcile.Request, 0, len(otherCAs.Items))
+					for _, otherCA := range otherCAs.Items {
+						if otherCA.Name == ca.Name {
+							continue
+						}
+						if otherCA.Spec.Issuer != ca.Name {
+							continue
+						}
+
+						requests = append(requests, reconcile.Request{
+							NamespacedName: types.NamespacedName{
+								Name:      otherCA.Name,
+								Namespace: otherCA.Namespace,
+							},
+						})
+					}
+					return requests
+				}
 				return nil
-			}
-
-			otherCAs := heistv1alpha1.VaultCertificateAuthorityList{}
-			for i := 0; i < 3; i++ {
-				if err := mgr.GetClient().List(context.TODO(), &otherCAs, &client.ListOptions{Namespace: ca.Namespace}); err != nil {
-					time.Sleep(time.Second)
-					continue
-				}
-				requests := make([]reconcile.Request, 0, len(otherCAs.Items))
-				for _, otherCA := range otherCAs.Items {
-					if otherCA.Name == ca.Name {
-						continue
-					}
-					if otherCA.Spec.Issuer != ca.Name {
-						continue
-					}
-
-					requests = append(requests, reconcile.Request{
-						NamespacedName: types.NamespacedName{
-							Name:      otherCA.Name,
-							Namespace: otherCA.Namespace,
-						},
-					})
-				}
-				return requests
-			}
-			return nil
-		})).
+			}),
+		).
 		Complete(r)
 }

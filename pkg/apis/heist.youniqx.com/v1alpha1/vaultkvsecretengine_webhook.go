@@ -24,6 +24,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -43,7 +44,7 @@ func (r *VaultKVSecretEngine) SetupWebhookWithManager(mgr ctrl.Manager) error {
 var _ webhook.Validator = &VaultKVSecretEngine{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultKVSecretEngine) ValidateCreate() error {
+func (r *VaultKVSecretEngine) ValidateCreate() (warnings admission.Warnings, err error) {
 	log := vaultkvsecretenginelog.WithName("validate").WithValues(
 		"action", "create",
 		"name", r.Name,
@@ -54,7 +55,7 @@ func (r *VaultKVSecretEngine) ValidateCreate() error {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultKVSecretEngine) ValidateUpdate(old runtime.Object) error {
+func (r *VaultKVSecretEngine) ValidateUpdate(old runtime.Object) (warnings admission.Warnings, err error) {
 	log := vaultkvsecretenginelog.WithName("validate").WithValues(
 		"action", "update",
 		"name", r.Name,
@@ -65,7 +66,7 @@ func (r *VaultKVSecretEngine) ValidateUpdate(old runtime.Object) error {
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type.
-func (r *VaultKVSecretEngine) ValidateDelete() error {
+func (r *VaultKVSecretEngine) ValidateDelete() (warnings admission.Warnings, err error) {
 	log := vaultkvsecretenginelog.WithName("validate").WithValues(
 		"action", "delete",
 		"name", r.Name,
@@ -75,17 +76,17 @@ func (r *VaultKVSecretEngine) ValidateDelete() error {
 
 	if r.Spec.DeleteProtection {
 		log.Info("rejecting change: resource has delete protection enabled. It cannot be deleted.")
-		return errors.New("delete protection is enabled for this VaultKVSecret, it cannot be deleted")
+		return nil, errors.New("delete protection is enabled for this VaultKVSecret, it cannot be deleted")
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (r *VaultKVSecretEngine) validate(log logr.Logger) error {
+func (r *VaultKVSecretEngine) validate(log logr.Logger) (warnings admission.Warnings, err error) {
 	if r.Spec.MaxVersions < 0 {
 		log.Info("rejecting change: max versions is set to a negative value.")
-		return errors.New("max versions cannot be set to a negative value")
+		return nil, errors.New("max versions cannot be set to a negative value")
 	}
 
-	return nil
+	return nil, nil
 }
