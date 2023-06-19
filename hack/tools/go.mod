@@ -10,7 +10,7 @@ require (
 	mvdan.cc/gofumpt v0.5.0
 	sigs.k8s.io/controller-tools v0.12.0
 	sigs.k8s.io/kind v0.20.0
-	sigs.k8s.io/kustomize/kustomize/v5 v5.0.3
+	sigs.k8s.io/kustomize/kustomize/v5 v5.1.0
 )
 
 require (
@@ -58,7 +58,7 @@ require (
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
-	github.com/go-openapi/jsonreference v0.20.1 // indirect
+	github.com/go-openapi/jsonreference v0.20.2 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/go-toolsmith/astcast v1.1.0 // indirect
@@ -83,9 +83,9 @@ require (
 	github.com/golangci/misspell v0.4.0 // indirect
 	github.com/golangci/revgrep v0.0.0-20220804021717-745bb2f7c2e6 // indirect
 	github.com/golangci/unconvert v0.0.0-20180507085042-28b1c447d1f4 // indirect
-	github.com/google/gnostic v0.5.7-v3refs // indirect
+	github.com/google/gnostic-models v0.6.8 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/google/gofuzz v1.1.0 // indirect
+	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/safetext v0.0.0-20220905092116-b49f7bc46da2 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gordonklaus/ineffassign v0.0.0-20230610083614-0e73809eb601 // indirect
@@ -189,7 +189,7 @@ require (
 	github.com/ultraware/whitespace v0.0.5 // indirect
 	github.com/uudashr/gocognit v1.0.6 // indirect
 	github.com/xen0n/gosmopolitan v1.2.1 // indirect
-	github.com/xlab/treeprint v1.1.0 // indirect
+	github.com/xlab/treeprint v1.2.0 // indirect
 	github.com/yagipy/maintidx v1.0.0 // indirect
 	github.com/yeya24/promlinter v0.2.0 // indirect
 	github.com/ykadowak/zerologlint v0.1.2 // indirect
@@ -207,7 +207,7 @@ require (
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/tools v0.9.3 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
+	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
@@ -219,15 +219,15 @@ require (
 	k8s.io/apimachinery v0.27.1 // indirect
 	k8s.io/gengo v0.0.0-20220902162205-c0856e24416d // indirect
 	k8s.io/klog/v2 v2.90.1 // indirect
-	k8s.io/kube-openapi v0.0.0-20230501164219-8b0f38b5fd1f // indirect
-	k8s.io/utils v0.0.0-20230209194617-a36077c30491 // indirect
+	k8s.io/kube-openapi v0.0.0-20230601164746-7562a1006961 // indirect
+	k8s.io/utils v0.0.0-20230505201702-9f6742963106 // indirect
 	mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed // indirect
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
 	mvdan.cc/unparam v0.0.0-20221223090309-7455f1af531d // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
-	sigs.k8s.io/kustomize/api v0.13.4 // indirect
-	sigs.k8s.io/kustomize/cmd/config v0.11.2 // indirect
-	sigs.k8s.io/kustomize/kyaml v0.14.2 // indirect
+	sigs.k8s.io/kustomize/api v0.14.0 // indirect
+	sigs.k8s.io/kustomize/cmd/config v0.11.3 // indirect
+	sigs.k8s.io/kustomize/kyaml v0.14.3 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
