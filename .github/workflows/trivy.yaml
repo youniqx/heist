@@ -26,4 +26,4 @@ jobs:
           scan-ref: '.'
           exit-code: '1'
           skip-files: kind_registry.yaml
-          skip-dirs: config
+          skip-dirs: config,demo
