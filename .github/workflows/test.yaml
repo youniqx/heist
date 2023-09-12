@@ -23,7 +23,7 @@ jobs:
         with:
           go-version: 1.20.x
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Acccess to private Repos
         run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
         env:
@@ -55,7 +55,7 @@ jobs:
         with:
           go-version: 1.20.x
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Access to private Repos
         run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
         env:
@@ -82,7 +82,7 @@ jobs:
         with:
           go-version: 1.20.x
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Access to private Repos
         run: git config --global url."https://golang:${ACCESS_TOKEN}@github.com".insteadOf "https://github.com"
         env:
@@ -94,7 +94,7 @@ jobs:
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: xt0rted/markdownlint-problem-matcher@v2
       - run: npm install -g markdownlint-cli
       - run: markdownlint **/*.md --ignore node_modules
