@@ -6,7 +6,7 @@ require (
 	github.com/daixiang0/gci v0.11.0
 	github.com/golangci/golangci-lint v1.54.2
 	github.com/onsi/ginkgo v1.16.5
-	k8s.io/code-generator v0.28.1
+	k8s.io/code-generator v0.28.2
 	mvdan.cc/gofumpt v0.5.0
 	sigs.k8s.io/controller-tools v0.13.0
 	sigs.k8s.io/kind v0.20.0
