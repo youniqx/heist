@@ -124,7 +124,7 @@ include mk/*.mk
 
 GINKGO = $(shell pwd)/bin/ginkgo
 bin/ginkgo:
-	$(call go-get-tool,$(GINKGO),github.com/onsi/ginkgo/ginkgo)
+	$(call go-get-tool,$(GINKGO),github.com/onsi/ginkgo/v2/ginkgo)
 
 test_setup: vault_test_setup kubernetes_test_setup bin/ginkgo
 
