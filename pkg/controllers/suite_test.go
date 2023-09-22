@@ -67,7 +67,7 @@ func TestAPIs(t *testing.T) {
 	RunSpecs(t, "Controller Suite")
 }
 
-var _ = BeforeSuite(BeforeSuiteSetup(), 60)
+var _ = BeforeSuite(BeforeSuiteSetup())
 
 func BeforeSuiteSetup() func() {
 	return func() {

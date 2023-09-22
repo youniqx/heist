@@ -54,5 +54,5 @@ var _ = Describe("VaultKVSecretEngine Webhooks", func() {
 			}
 			Expect(K8sClient.Create(ctx, key)).To(Succeed())
 		})
-	}, 60)
+	})
 })

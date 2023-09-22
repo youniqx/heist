@@ -126,5 +126,5 @@ var _ = Describe("VaultKVSecretEngine Webhooks", func() {
 				return K8sClient.Delete(ctx, engine)
 			}).Should(Succeed())
 		})
-	}, 60)
+	})
 })

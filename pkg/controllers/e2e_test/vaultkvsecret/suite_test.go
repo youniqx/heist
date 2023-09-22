@@ -35,6 +35,6 @@ func TestAPIs(t *testing.T) {
 }
 
 var (
-	_ = BeforeSuite(Test.BeforeSuiteSetup, 60)
+	_ = BeforeSuite(Test.BeforeSuiteSetup)
 	_ = AfterSuite(Test.AfterSuiteTeardown)
 )

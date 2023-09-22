@@ -333,5 +333,5 @@ var _ = Describe("VaultBinding Controller", func() {
 		By("Deleting the Auth Role if all bindings are deleted")
 		Expect(Test.K8sClient.Delete(context.TODO(), secondBinding)).To(Succeed())
 		Test.VaultEnv.KubernetesAuthRole(managed.KubernetesAuth, roleName).WithTimeout(5 * time.Minute).Should(BeNil())
-	}, 60)
+	})
 })

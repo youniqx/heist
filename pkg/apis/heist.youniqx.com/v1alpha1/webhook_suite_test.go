@@ -173,7 +173,7 @@ var _ = BeforeSuite(func() {
 
 	K8sClient = mgr.GetClient()
 	Expect(K8sClient).NotTo(BeNil())
-}, 60)
+})
 
 var _ = AfterSuite(func() {
 	cancel()

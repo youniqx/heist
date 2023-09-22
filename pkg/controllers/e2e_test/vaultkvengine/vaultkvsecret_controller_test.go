@@ -51,5 +51,5 @@ var _ = Describe("VaultKVSecretEngine Controller", func() {
 		Expect(Test.K8sClient.Delete(context.TODO(), engine)).To(Succeed())
 		Test.K8sEnv.Object(engine).Should(BeNil())
 		Test.VaultEnv.KvEngine(engine).Should(BeNil())
-	}, 60)
+	})
 })

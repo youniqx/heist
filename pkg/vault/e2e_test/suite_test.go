@@ -53,7 +53,7 @@ var _ = BeforeSuite(func() {
 	vaultAPI, err = vaultEnv.GetAPI()
 	Expect(err).NotTo(HaveOccurred())
 	Expect(vaultAPI).NotTo(BeNil())
-}, 60)
+})
 
 var _ = AfterSuite(func() {
 	By("tearing down the test environment")
