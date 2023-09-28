@@ -40,6 +40,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
+	"sigs.k8s.io/controller-runtime/pkg/webhook"
 )
 
 var (
@@ -138,9 +140,13 @@ var controllerCmd = &cobra.Command{
 
 func generateManagerConfig(heistConfig *HeistConfig) ctrl.Options {
 	options := ctrl.Options{
-		Scheme:                 scheme,
-		MetricsBindAddress:     heistConfig.Operator.MetricsBindAddress,
-		Port:                   heistConfig.Operator.WebhookPort,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: heistConfig.Operator.MetricsBindAddress,
+		},
+		WebhookServer: webhook.NewServer(webhook.Options{
+			Port: heistConfig.Operator.WebhookPort,
+		}),
 		HealthProbeBindAddress: heistConfig.Operator.HealthProbeBindAddress,
 		LeaderElection:         heistConfig.Operator.LeaderElect,
 		LeaderElectionID:       heistConfig.Operator.LeaderElectionID,
@@ -155,16 +161,27 @@ func generateManagerConfig(heistConfig *HeistConfig) ctrl.Options {
 		setupLog.Info("Operator Scope: multi namespace", "namespaces", namespaces)
 
 		options.NewCache = func(config *rest.Config, opts cache.Options) (cache.Cache, error) {
-			opts.Namespaces = namespaces
+			opts.DefaultNamespaces = getNamespacedCacheConfig(namespaces)
 			return cache.New(config, opts)
 		}
 
 		return options
 	default:
 		setupLog.Info("Operator Scope: single namespace", "namespaces", []string{watchedNamespaces})
-		options.Cache.Namespaces = []string{watchedNamespaces}
+		options.Cache.DefaultNamespaces = getNamespacedCacheConfig([]string{watchedNamespaces})
 		return options
 	}
+}
+
+func getNamespacedCacheConfig(namespaces []string) (namespaceConfig map[string]cache.Config) {
+	namespaceConfig = map[string]cache.Config{}
+
+	for _, namespace := range namespaces {
+		// leave all cache.Config fields nil to use default settings
+		namespaceConfig[namespace] = cache.Config{}
+	}
+
+	return namespaceConfig
 }
 
 func init() {
