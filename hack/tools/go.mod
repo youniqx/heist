@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/daixiang0/gci v0.11.2
 	github.com/golangci/golangci-lint v1.55.2
-	github.com/onsi/ginkgo/v2 v2.13.1
+	github.com/onsi/ginkgo/v2 v2.13.2
 	k8s.io/code-generator v0.28.4
 	mvdan.cc/gofumpt v0.5.0
 	sigs.k8s.io/controller-tools v0.13.0
