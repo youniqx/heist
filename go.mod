@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	github.com/go-logr/logr v1.3.0
+	github.com/go-logr/logr v1.4.1
 	github.com/go-test/deep v1.1.0
 	github.com/hashicorp/hcl/v2 v2.19.1
 	github.com/hashicorp/vault/sdk v0.10.2
