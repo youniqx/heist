@@ -8,7 +8,7 @@ require (
 	github.com/go-test/deep v1.1.0
 	github.com/hashicorp/hcl/v2 v2.19.1
 	github.com/hashicorp/vault/sdk v0.10.2
-	github.com/mattbaird/jsonpatch v0.0.0-20230413205102-771768614e91
+	github.com/mattbaird/jsonpatch v0.0.0-20240118010651-0ba75a80ca38
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/onsi/ginkgo/v2 v2.16.0
 	github.com/onsi/gomega v1.30.0
