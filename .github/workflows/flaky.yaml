@@ -28,7 +28,7 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.ORGANIZATION_GITHUB_ACCESS_TOKEN }}
       - name: Cache Go Module & Build Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/go/pkg/mod
@@ -39,7 +39,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - name: Cache Test Env Assets
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: testbin
           key: ${{ runner.os }}-testenv-${{ hashFiles('mk/*_test_env.mk') }}
