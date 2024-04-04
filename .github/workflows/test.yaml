@@ -90,7 +90,7 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v4
         with:
-          version: v1.52.2
+          version: v1.57.2
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
