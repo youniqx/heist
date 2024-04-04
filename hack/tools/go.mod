@@ -3,7 +3,7 @@ module sigs.k8s.io/kind/hack/tools
 go 1.22
 
 require (
-	github.com/daixiang0/gci v0.12.3
+	github.com/daixiang0/gci v0.13.4
 	github.com/golangci/golangci-lint v1.57.2
 	github.com/onsi/ginkgo/v2 v2.17.1
 	k8s.io/code-generator v0.29.0
