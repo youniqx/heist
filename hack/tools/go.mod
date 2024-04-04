@@ -9,7 +9,7 @@ require (
 	k8s.io/code-generator v0.28.4
 	mvdan.cc/gofumpt v0.6.0
 	sigs.k8s.io/controller-tools v0.13.0
-	sigs.k8s.io/kind v0.20.0
+	sigs.k8s.io/kind v0.22.0
 	sigs.k8s.io/kustomize/kustomize/v5 v5.3.0
 )
 
