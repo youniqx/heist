@@ -21,7 +21,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.20.x
+          go-version: 1.22.x
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Setup Acccess to private Repos
@@ -53,7 +53,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.20.x
+          go-version: 1.22.x
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Setup Access to private Repos
@@ -80,7 +80,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.20.x
+          go-version: 1.22.x
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Setup Access to private Repos
