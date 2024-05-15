@@ -8,7 +8,7 @@ require (
 	github.com/daixiang0/gci v0.13.4
 	github.com/golangci/golangci-lint v1.58.0
 	github.com/onsi/ginkgo/v2 v2.17.2
-	k8s.io/code-generator v0.30.0
+	k8s.io/code-generator v0.30.1
 	mvdan.cc/gofumpt v0.6.0
 	sigs.k8s.io/controller-tools v0.15.0
 	sigs.k8s.io/kind v0.22.0
@@ -222,7 +222,7 @@ require (
 	honnef.co/go/tools v0.4.7 // indirect
 	k8s.io/api v0.30.0 // indirect
 	k8s.io/apiextensions-apiserver v0.30.0 // indirect
-	k8s.io/apimachinery v0.30.0 // indirect
+	k8s.io/apimachinery v0.30.1 // indirect
 	k8s.io/gengo/v2 v2.0.0-20240228010128-51d4e06bde70 // indirect
 	k8s.io/klog/v2 v2.120.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
