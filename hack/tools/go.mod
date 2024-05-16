@@ -11,7 +11,7 @@ require (
 	k8s.io/code-generator v0.30.1
 	mvdan.cc/gofumpt v0.6.0
 	sigs.k8s.io/controller-tools v0.15.0
-	sigs.k8s.io/kind v0.22.0
+	sigs.k8s.io/kind v0.23.0
 	sigs.k8s.io/kustomize/kustomize/v5 v5.4.1
 )
 
