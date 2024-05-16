@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/daixiang0/gci v0.13.4
-	github.com/golangci/golangci-lint v1.58.0
+	github.com/golangci/golangci-lint v1.58.1
 	github.com/onsi/ginkgo/v2 v2.17.2
 	k8s.io/code-generator v0.30.1
 	mvdan.cc/gofumpt v0.6.0
@@ -18,7 +18,7 @@ require (
 require (
 	4d63.com/gocheckcompilerdirectives v1.2.1 // indirect
 	4d63.com/gochecknoglobals v0.2.1 // indirect
-	github.com/4meepo/tagalign v1.3.3 // indirect
+	github.com/4meepo/tagalign v1.3.4 // indirect
 	github.com/Abirdcfly/dupword v0.0.14 // indirect
 	github.com/Antonboom/errname v0.1.13 // indirect
 	github.com/Antonboom/nilnil v0.1.8 // indirect
@@ -61,7 +61,7 @@ require (
 	github.com/firefart/nonamedreturns v1.0.5 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/fzipp/gocyclo v0.6.0 // indirect
-	github.com/ghostiam/protogetter v0.3.5 // indirect
+	github.com/ghostiam/protogetter v0.3.6 // indirect
 	github.com/go-critic/go-critic v0.11.3 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
@@ -208,11 +208,11 @@ require (
 	golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
-	golang.org/x/tools v0.20.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
+	golang.org/x/tools v0.21.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
