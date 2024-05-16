@@ -12,7 +12,7 @@ require (
 	github.com/hashicorp/vault/sdk v0.12.0
 	github.com/mattbaird/jsonpatch v0.0.0-20240118010651-0ba75a80ca38
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/onsi/ginkgo/v2 v2.17.2
+	github.com/onsi/ginkgo/v2 v2.17.3
 	github.com/onsi/gomega v1.33.1
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
