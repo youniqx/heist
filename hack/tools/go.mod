@@ -7,7 +7,7 @@ toolchain go1.22.4
 require (
 	github.com/daixiang0/gci v0.13.4
 	github.com/golangci/golangci-lint v1.59.0
-	github.com/onsi/ginkgo/v2 v2.18.0
+	github.com/onsi/ginkgo/v2 v2.19.0
 	k8s.io/code-generator v0.30.1
 	mvdan.cc/gofumpt v0.6.0
 	sigs.k8s.io/controller-tools v0.15.0
