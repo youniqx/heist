@@ -9,7 +9,7 @@ require (
 	github.com/golangci/golangci-lint v1.59.0
 	github.com/onsi/ginkgo/v2 v2.20.2
 	k8s.io/code-generator v0.30.1
-	mvdan.cc/gofumpt v0.6.0
+	mvdan.cc/gofumpt v0.7.0
 	sigs.k8s.io/controller-tools v0.15.0
 	sigs.k8s.io/kind v0.23.0
 	sigs.k8s.io/kustomize/kustomize/v5 v5.4.2
