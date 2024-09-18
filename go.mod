@@ -8,7 +8,7 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/go-logr/logr v1.4.2
 	github.com/go-test/deep v1.1.1
-	github.com/hashicorp/hcl/v2 v2.20.1
+	github.com/hashicorp/hcl/v2 v2.22.0
 	github.com/hashicorp/vault/sdk v0.13.0
 	github.com/mattbaird/jsonpatch v0.0.0-20240118010651-0ba75a80ca38
 	github.com/mitchellh/go-homedir v1.1.0
