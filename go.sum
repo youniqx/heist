@@ -75,8 +75,8 @@ github.com/hashicorp/hcl v1.0.1-vault-5 h1:kI3hhbbyzr4dldA8UdTb7ZlVVlI2DACdCfz31
 github.com/hashicorp/hcl v1.0.1-vault-5/go.mod h1:XYhtn6ijBSAj6n4YqAaf7RBPS4I06AItNorpy+MoQNM=
 github.com/hashicorp/hcl/v2 v2.22.0 h1:hkZ3nCtqeJsDhPRFz5EA9iwcG1hNWGePOTw6oyul12M=
 github.com/hashicorp/hcl/v2 v2.22.0/go.mod h1:62ZYHrXgPoX8xBnzl8QzbWq4dyDsDtfCRgIq1rbJEvA=
-github.com/hashicorp/vault/sdk v0.13.0 h1:UmcLF+7r70gy1igU44Suflgio30P2GOL4MkHPhJuiP8=
-github.com/hashicorp/vault/sdk v0.13.0/go.mod h1:LxhNTWRG99mXg9xijBCnCnIus+brLC5uFsQUQ4zgOnU=
+github.com/hashicorp/vault/sdk v0.14.0 h1:8vagjlpLurkFTnKT9aFSGs4U1XnK2IFytnWSxgFrDo0=
+github.com/hashicorp/vault/sdk v0.14.0/go.mod h1:3hnGK5yjx3CW2hFyk+Dw1jDgKxdBvUvjyxMHhq0oUFc=
 github.com/huandu/xstrings v1.3.2 h1:L18LIDzqlW6xN2rEkpdV8+oL/IXWJ1APd+vsdYy4Wdw=
 github.com/huandu/xstrings v1.3.2/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
 github.com/imdario/mergo v0.3.12 h1:b6R2BslTbIEToALKP7LxUvijTsNI9TAe80pLWN2g/HU=
