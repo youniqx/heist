@@ -2,7 +2,7 @@ module github.com/youniqx/heist
 
 go 1.22.0
 
-toolchain go1.22.4
+toolchain go1.23.2
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
