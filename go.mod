@@ -6,7 +6,7 @@ toolchain go1.22.4
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	github.com/go-logr/logr v1.4.2
+	github.com/go-logr/logr v1.4.3
 	github.com/go-test/deep v1.1.1
 	github.com/hashicorp/hcl/v2 v2.23.0
 	github.com/hashicorp/vault/sdk v0.14.0
