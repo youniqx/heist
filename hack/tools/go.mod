@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	github.com/daixiang0/gci v0.13.5
+	github.com/daixiang0/gci v0.13.7
 	github.com/golangci/golangci-lint v1.63.4
 	github.com/onsi/ginkgo/v2 v2.22.2
 	k8s.io/code-generator v0.32.0
