@@ -2,7 +2,7 @@ module sigs.k8s.io/kind/hack/tools
 
 go 1.23.0
 
-toolchain go1.23.6
+toolchain go1.27.1
 
 require (
 	github.com/daixiang0/gci v0.13.5
