@@ -1,8 +1,6 @@
 module github.com/youniqx/heist
 
-go 1.22.0
-
-toolchain go1.22.4
+go 1.26
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
@@ -21,7 +19,7 @@ require (
 	k8s.io/api v0.31.3
 	k8s.io/apimachinery v0.31.3
 	k8s.io/client-go v0.31.3
-	k8s.io/utils v0.0.0-20241210054802-24370beab758
+	k8s.io/utils v0.0.0-20261023123148-ca04ba58ecab
 	sigs.k8s.io/controller-runtime v0.19.3
 )
 
